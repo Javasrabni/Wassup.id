@@ -7,7 +7,7 @@ const Sidebar = () => {
         <div>
             <ul>
                 {NavbarData.map(i =>
-                    <Link key={i.id} href={`${i.URL}${i.title.replace(/\s+/g, '-')}`}><li>{i.title}</li></Link>
+                    <Link key={i.id} href={`${i.URL}${i.title.toLowerCase() === "berita" ? '/' : i.title.replace(/\s+/g, '-').toLowerCase()}`}><li>{i.title}</li></Link>
                 )}
             </ul>
         </div>

@@ -6,7 +6,7 @@ export interface Navbar {
 }
 
 export const NavbarData: Navbar[] = [
-    { id: '1', title: "Berita", URL: '/inf/' },
+    { id: '1', title: "Berita", URL: '/' },
     { id: '2', title: "Tentang kami", URL: '/inf/' },
     { id: '3', title: "Kontak", URL: '/inf/' },
 ]

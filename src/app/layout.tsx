@@ -27,7 +27,13 @@ export default function RootLayout({
         className={`${newsreader.variable} antialiased`}
       >
         <Navbar />
-        <Content>{children}</Content>
+        <div className="w-full h-screen flex p-8">
+          <div className="w-full max-w-[60rem] mx-auto">
+            <Content>{children}</Content>
+
+          </div>
+        </div>
+
         <div className="flex md:hidden">
           <Sidebar />
         </div>
