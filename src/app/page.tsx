@@ -18,13 +18,13 @@ export default function Home() {
 
         <div className="relative w-full max-w-[32rem] flex flex-col gap-4 items-center justify-center p-4">
           <h1 className="text-xl sm:text-2xl text-center select-none">Ngobrolin dunia ala gaya kita!</h1>
-          <SearchInput value={searchInputValue} onchange={setSearchInputValue} placeholder="Berita hari ini..." withButton={true} />
+          <SearchInput value={searchInputValue} onchange={setSearchInputValue} placeholder="Pengetahuan hari ini ..." withButton={true} />
         </div>
       </div>
 
       {/* TRENDING */}
       <div className="w-full flex items-center justify-between gap-8">
-        <p className="text-black py-2 text-xs font-bold uppercase tracking-widest shrink-0 select-none">TRENDING TOPIK</p>
+        <p className="text-black py-2 text-xs font-bold uppercase tracking-widest shrink-0 select-none">TOPIK</p>
         <div className="w-full pl-8 overflow-x-auto">
           <ul className="flex gap-8 w-fit shrink-0">
             {DataTrending.map((i, idx) =>

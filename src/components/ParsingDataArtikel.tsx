@@ -27,8 +27,9 @@ export default function ArtikelDataParsing({ judul, featured_article }: ArtikelP
                         
                         <p className="text-sm sm:text-base overflow-hidden text-elipsis [display:-webkit-box] [-webkit-line-clamp:3] [-webkit-box-orient:vertical]">{i.content}</p>
 
-                        <div className="pt-4 w-fit">
+                        <div className="pt-4 w-fit flex flex-row gap-4 items-center">
                             <Link href={`/read/${i.category}/${i.slug}`}><p className="bg-gray-900 hover:bg-gray-200 text-white hover:text-gray-900 px-3 py-2 text-[10px] uppercase tracking-widest">Baca selengkapnya</p></Link>
+                            <p className="text-stone-400 text-sm">• {i.category}</p>
                         </div>
                         {/* <p className="text-sm pt-4 text-gray-400">{i.date}</p> */}
                     </div>

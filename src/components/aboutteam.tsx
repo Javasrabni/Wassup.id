@@ -18,7 +18,7 @@ interface team {
 
 const ArrayTeam: team[] = [
     { nama: 'Idam Rizqullah Aji', id: 1, role: 'Initiator / ideator', image: '/team/idam.jpeg', socialMedia: 'https://www.instagram.com/rizqaji_' },
-    { nama: 'Javas Anggaraksa Rabbani', id: 2, role: 'Full-Stack Developer', image: '/team/javas.jpg', socialMedia: 'https://javasrabni.my.id' },
+    { nama: 'Javas Anggaraksa Rabbani', id: 2, role: 'Full-Stack Web Developer', image: '/team/javas.jpg', socialMedia: 'https://javasrabni.my.id' },
     { nama: 'Amelia Ayeesha Zahra', id: 3, role: 'Graphic Designer', image: '/team/amel.jpeg', socialMedia: 'https://www.instagram.com/ameelyaaz' },
     { nama: 'M. Nafish Pallas', id: 4, role: 'Content Writter', image: '/team/nafish.jpeg', socialMedia: 'https://www.instagram.com/nafispallas' },
 ]

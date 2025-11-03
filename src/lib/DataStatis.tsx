@@ -33,7 +33,7 @@ export const DataArtikel: Data[] = [
   {
     id: "1",
     featured_article: true,
-    date: "1 November 2025",
+    date: "01 November 2025",
     author: "Javas Anggaraksa Rabbani",
     title: "Apakah Rokok Herbal Lebih Sehat dari Rokok Konvensional?",
     slug: "apakah-rokok-herbal-sehat?",
@@ -43,7 +43,7 @@ export const DataArtikel: Data[] = [
     `,
 
     thumbnail: "/thumbnail/topik-rokok-herbal.jpeg",
-    category: "sains",
+    category: "Sains",
     description:
       'Apakah ketika anda mendengar kata "herbal" pada nama rokok tersebut, dalam benak pikiran anda mengatakan bahwa rokok terebut merupakan rokok yang sehat? sebenarnya dalam segi kesehatan tidak ada yang namanya "rokok yang sehat" jika rokok tersebut masih dibakar untuk menggunakannya.',
   },
@@ -77,10 +77,10 @@ export interface Trending {
 }
 
 export const DataTrending: Trending[] = [
-  { id: 1, string: "Demokrasi" },
-  { id: 2, string: "Prabowo" },
-  { id: 3, string: "Jokowi" },
-  { id: 4, string: "Tuntutan 17+8" },
-  { id: 5, string: "Bahan Pangan" },
-  { id: 6, string: "Catur" },
+  { id: 1, string: "Sains" },
+  { id: 2, string: "Akademik" },
+  { id: 3, string: "Teknologi" },
+  { id: 4, string: "Diskusi Opini" },
+  { id: 5, string: "Filsafat" },
+  { id: 6, string: "Inovasi" },
 ];

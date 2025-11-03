@@ -17,7 +17,7 @@ const Navbar = () => {
                 <Link href={'/'}><h1 className='text-xl font-bold'>Wassup.id</h1></Link>
 
                 <span className={`${pathname == '/' ? 'hidden' : 'hidden sm:flex'}`}>
-                    <SearchInput value={searchInputValue} onchange={setSearchInputValue} placeholder="Cari artikel..." withButton={false} />
+                    <SearchInput value={searchInputValue} onchange={setSearchInputValue} placeholder="Cari artikel ..." withButton={false} />
                 </span>
 
                 <ul className='hidden md:flex gap-8 '>
