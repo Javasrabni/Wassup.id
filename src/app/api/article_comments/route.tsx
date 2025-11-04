@@ -1,17 +1,23 @@
-import { NextResponse } from "next/server";
+import { connectDB } from "@/lib/mongodb";
+import Comment from "@/models/Comment";
 
-let comments: string[] = [];
-
-export async function GET() {
-  return NextResponse.json({ comments });
+// POST
+export async function POST(request: Request) {
+  await connectDB();
+  const { articleSlug, comment } = await request.json();
+  await Comment.create({ articleSlug, comment });
+  return Response.json({ success: true });
 }
 
-export async function POST(req: Request) {
-  const { text } = await req.json();
-  if (!text || text.trim() == "") {
-    return NextResponse.json({ error: "Komentar kosong!" }, { status: 400 });
-  }
+// GET
+export async function GET(request: Request) {
+  await connectDB();
 
-  comments.unshift(text);
-  return NextResponse.json({ success: true });
+  const { searchParams } = new URL(request.url);
+  const articleSlug = searchParams.get("articleSlug");
+
+  const comments = await Comment.find({ articleSlug }).sort({ createdAt: -1 });
+
+  // Return only comment text array (sesuai kebutuhan komponen kamu)
+  return Response.json(comments.map((c) => c.comment));
 }

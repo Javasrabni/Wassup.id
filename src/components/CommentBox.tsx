@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { SendHorizonalIcon, User2Icon } from "lucide-react";
 
-const CommentBox = () => {
+const CommentBox = ({ slug }: { slug: string }) => {
   // State Textarea
   const [textAreaValue, setTextAreaValue] = useState("");
 
@@ -17,17 +17,20 @@ const CommentBox = () => {
   const [newCommentHighLight, setNewCommentHighLight] = useState(false);
 
   const loadComments = async () => {
-    const res = await fetch("/api/article_comments");
+    const res = await fetch(`/api/article_comments?articleSlug=${slug}`);
     const data = await res.json();
-    setListOutputCommentsArticel(data.comments);
-    setLengtComments(data.comments.length);
+    setListOutputCommentsArticel(data ?? []);
+    setLengtComments(data?.length ?? 0);
   };
 
   const submitComments = async () => {
     const response = await fetch("/api/article_comments", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: textAreaValue }),
+      body: JSON.stringify({
+        articleSlug: slug,
+        comment: textAreaValue,
+      }),
     });
 
     if (!response.ok) {
@@ -38,9 +41,9 @@ const CommentBox = () => {
     setOpenComments(true);
 
     const delay = setTimeout(() => {
-        setNewCommentHighLight(true);
+      setNewCommentHighLight(true);
     }, 1000);
-    return ()=> clearTimeout(delay)
+    return () => clearTimeout(delay);
   };
 
   //   Clear highlight

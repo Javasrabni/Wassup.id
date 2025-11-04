@@ -121,7 +121,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
             </div>
 
             {/* Comment box component */}
-            <CommentBox />
+            <CommentBox slug={slug}/>
           </div>
         </div>
         <div className="border-b border-gray-200 pt-4" /> {/* Line Border */}
