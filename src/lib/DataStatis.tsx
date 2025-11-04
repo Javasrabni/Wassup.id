@@ -16,15 +16,30 @@ export const NavbarData: Navbar[] = [
 ];
 
 // DATA CONTENT ARTIKEL
+// export interface Trending {
+//   id: number;
+//   string: string;
+// }
+
+export const DataTrending = [
+  { id: 1, string: "Sains" },
+  { id: 2, string: "Akademik" },
+  { id: 3, string: "Teknologi" },
+  { id: 4, string: "Diskusi Opini" },
+  { id: 5, string: "Filsafat" },
+  { id: 6, string: "Inovasi" },
+] as const
+
+export type CategoryType = typeof DataTrending[number]["string"];
 export interface Data {
   id: string;
   featured_article: boolean;
   date: string;
-  author?: string;
+  author: string;
   title: string;
   content: string;
   thumbnail: string;
-  category?: string;
+  category: CategoryType;
   slug: string;
   description: string;
 }
@@ -51,8 +66,10 @@ export const DataArtikel: Data[] = [
     id: "2",
     featured_article: false,
     date: "40 Juni 2050",
+    category: "Akademik",
+    author: "icikiwir",
     title: "Bukti Bahwa Merokok Tidak Ada Manfaatnya Bagi Tubuh",
-    slug: "Bukti-Bahwa-Merokok-Tidak-Ada-Manfaatnya-Bagi-Tubuh",
+    slug: "bukti-bahwa-merokok-tidak-ada-manfaatnya-bagi-tubuh",
     content: `Terkadang merokok itu menenangkan tetapi dibalik ketenagan tersebut menyimpan bahaya yang perlahan menggerogoti kesehatan layaknya parasit.`,
     thumbnail: "/smok.jpg",
     description:
@@ -62,8 +79,10 @@ export const DataArtikel: Data[] = [
     id: "3",
     featured_article: false,
     date: "40 Juni 2050",
+    category: "Filsafat",
+    author: "Icikiwir",
     title: "Bukti Bahwa Merokok Tidak Ada Manfaatnya Bagi Tubuh",
-    slug: "Bukti-Bahwa-Merokok-Tidak-Ada-Manfaatnya-Bagi-Tubuh",
+    slug: "bukti-bahwa-merokok-tidak-ada-manfaatnya-bagi-tubuh",
     content: `Terkadang merokok itu menenangkan tetapi dibalik ketenagan tersebut menyimpan bahaya yang perlahan menggerogoti kesehatan layaknya parasit.`,
     thumbnail: "/smok.jpg",
     description:
@@ -71,16 +90,4 @@ export const DataArtikel: Data[] = [
   },
 ];
 
-export interface Trending {
-  id: number;
-  string: string;
-}
 
-export const DataTrending: Trending[] = [
-  { id: 1, string: "Sains" },
-  { id: 2, string: "Akademik" },
-  { id: 3, string: "Teknologi" },
-  { id: 4, string: "Diskusi Opini" },
-  { id: 5, string: "Filsafat" },
-  { id: 6, string: "Inovasi" },
-];

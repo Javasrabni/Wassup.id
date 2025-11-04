@@ -56,7 +56,6 @@ export default function Home() {
             <li>Quod eligendi error debitis aliquam quibusdam vitae dignissimos maiores aspernatur harum.</li>
           </ul>
         </div>
-
       </div>
 
     </div>
