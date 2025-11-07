@@ -3,14 +3,19 @@
 import React, { useEffect, useState } from "react";
 import { SendHorizonalIcon, User2Icon } from "lucide-react";
 
+interface CommentData {
+  comment: string;
+  date: string;
+}
+
 const CommentBox = ({ slug }: { slug: string }) => {
   // State Textarea
   const [textAreaValue, setTextAreaValue] = useState("");
 
   // Output API Comments Value
-  const [openComments, setOpenComments] = useState(false); // Open & Close Comment Section
+  const [openComments, setOpenComments] = useState(true); // Open & Close Comment Section
   const [listOutputCommentsArticel, setListOutputCommentsArticel] = useState<
-    string[]
+    CommentData[]
   >([]);
 
   const [lengthComments, setLengtComments] = useState(0); // Length of Comments
@@ -24,26 +29,34 @@ const CommentBox = ({ slug }: { slug: string }) => {
   };
 
   const submitComments = async () => {
-    const response = await fetch("/api/article_comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        articleSlug: slug,
-        comment: textAreaValue,
-      }),
-    });
+    try {
+      const response = await fetch("/api/article_comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          articleSlug: slug,
+          comment: textAreaValue,
+        }),
+      });
 
-    if (!response.ok) {
-      console.log(response.statusText);
+      loadComments();
+
+      if (!response.ok) {
+        console.log(response.statusText);
+        alert("Terjadi kesalahan server.");
+        return;
+      }
+
+      setTextAreaValue("");
+      setOpenComments(true);
+
+      const delay = setTimeout(() => {
+        setNewCommentHighLight(true);
+      }, 1000);
+      return () => clearTimeout(delay);
+    } catch (error) {
+      console.error(error);
     }
-    setTextAreaValue("");
-    loadComments();
-    setOpenComments(true);
-
-    const delay = setTimeout(() => {
-      setNewCommentHighLight(true);
-    }, 1000);
-    return () => clearTimeout(delay);
   };
 
   //   Clear highlight
@@ -89,13 +102,26 @@ const CommentBox = ({ slug }: { slug: string }) => {
             <div
               className={`${
                 i == 0 && newCommentHighLight && "bg-stone-100"
-              } flex flex-row gap-4`}
+              } flex flex-col gap-0`}
               key={i}
             >
-              <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center shrink-0">
-                <User2Icon width={16} className="text-stone-400" />
-              </div>
-              <p className="text-sm mt-1">{c}</p>
+              <span className="flex gap-4 items-center">
+                <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center shrink-0">
+                  <User2Icon width={16} className="text-stone-400" />
+                </div>
+                <p className="text-sm ">
+                  Anonim ·{" "}
+                  <span className="text-gray-400">{new Date(c.date).toLocaleDateString("id-ID", {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                  })}</span>
+                </p>
+              </span>
+
+              <span className="ml-12">
+                <p className="text-sm mt-1">{c.comment}</p>
+              </span>
             </div>
           ))}
         </div>

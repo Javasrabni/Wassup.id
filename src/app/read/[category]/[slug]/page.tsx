@@ -6,6 +6,7 @@ import Markdown from "react-markdown";
 import { Eye, MessageSquareTextIcon, UserRoundPenIcon } from "lucide-react";
 import CommentBox from "@/components/CommentBox";
 import ArtikelDataParsing from "@/components/ParsingDataArtikel";
+import ArticleView from "@/models/ArticleView";
 
 interface ArticleParams {
   params: {
@@ -72,6 +73,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
     // datePublished: new Date(data.date).toISOString(),
   };
 
+
   return (
     <>
       {/* Schema JSON-LD untuk Google */}
@@ -121,7 +123,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
             </div>
 
             {/* Comment box component */}
-            <CommentBox slug={slug}/>
+            <CommentBox slug={slug} />
           </div>
         </div>
         <div className="border-b border-gray-200 pt-4" /> {/* Line Border */}

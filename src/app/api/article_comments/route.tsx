@@ -19,5 +19,5 @@ export async function GET(request: Request) {
   const comments = await Comment.find({ articleSlug }).sort({ createdAt: -1 });
 
   // Return only comment text array (sesuai kebutuhan komponen kamu)
-  return Response.json(comments.map((c) => c.comment));
+  return Response.json(comments.map((c) => ({comment: c.comment, date: c.createdAt})));
 }

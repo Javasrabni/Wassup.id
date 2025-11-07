@@ -21,7 +21,7 @@ export const NavbarData: Navbar[] = [
 //   string: string;
 // }
 
-export const DataTrending = [
+export const DataTopik = [
   { id: 1, string: "Sains" },
   { id: 2, string: "Akademik" },
   { id: 3, string: "Teknologi" },
@@ -30,7 +30,7 @@ export const DataTrending = [
   { id: 6, string: "Inovasi" },
 ] as const
 
-export type CategoryType = typeof DataTrending[number]["string"];
+export type CategoryType = typeof DataTopik[number]["string"];
 export interface Data {
   id: string;
   featured_article: boolean;
