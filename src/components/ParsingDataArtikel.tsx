@@ -22,7 +22,7 @@ export default function ArtikelDataParsing({
   return (
     <div className={`${featured_article && "mt-[-26px]"} flex flex-col gap-8`}>
       <h1 className="text-lg sm:text-xl font-bold font-['Inter']">{judul}</h1>
-      {filteredData.map((i) => (
+      {filteredData.length > 0 ? filteredData.map((i) => (
         <div key={i.id} className="flex gap-4 cursor-pointer">
           <div className="relative w-[240px] h-[168px] shrink-0">
             <Image
@@ -52,7 +52,9 @@ export default function ArtikelDataParsing({
             {/* <p className="text-sm pt-4 text-gray-400">{i.date}</p> */}
           </div>
         </div>
-      ))}
+      )): (
+        <p>Kategori ini belum tersedia.</p>
+      )}
     </div>
   );
 }

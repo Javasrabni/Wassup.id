@@ -118,7 +118,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
               </h1>
               <span className="flex flex-row gap-4 text-stone-400 items-center">
                 <MessageSquareTextIcon width={16} />
-                <p className="text-sm text-stone-400">Komentar secara anonim</p>
+                <p className="text-sm text-stone-400">Komentar bersifat anonim.</p>
               </span>
             </div>
 

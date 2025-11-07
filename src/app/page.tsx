@@ -10,7 +10,7 @@ export default function Home() {
   const [searchInputValue, setSearchInputValue] = useState("");
 
   return (
-    <div className="w-full flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-8 pb-16">
       {/* BANNER */}
       <div className="relative w-full h-60 rounded-none overflow-hidden flex items-center justify-center border-b border-gray-200">
         {/* <Image src={'/bg.jpg'} alt="Banner" fill priority quality={90} className="object-cover blur-[2px]" /> */}

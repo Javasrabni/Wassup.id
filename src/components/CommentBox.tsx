@@ -52,7 +52,7 @@ const CommentBox = ({ slug }: { slug: string }) => {
 
       const delay = setTimeout(() => {
         setNewCommentHighLight(true);
-      }, 1000);
+      }, 500);
       return () => clearTimeout(delay);
     } catch (error) {
       console.error(error);
@@ -63,7 +63,7 @@ const CommentBox = ({ slug }: { slug: string }) => {
   useEffect(() => {
     const delay = setTimeout(() => {
       setNewCommentHighLight(false);
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(delay);
   }, [newCommentHighLight]);
@@ -76,15 +76,15 @@ const CommentBox = ({ slug }: { slug: string }) => {
     <div className="flex flex-col gap-4">
       <div className="flex flex-row h-full">
         <textarea
-          className="w-full bg-stone-100 min-h-[10rem] p-4"
+          className="w-full bg-stone-100 min-h-[10rem] p-4 resize-none"
           placeholder="Komentar kamu terkait topik ini ..."
           onChange={(v) => setTextAreaValue(v.target.value)}
           value={textAreaValue}
-        />
+          />
         <button
           className="h-full w-fit px-2 bg-gray-900 text-white cursor-pointer hover:bg-gray-200 hover:text-gray-900"
           onClick={submitComments}
-        >
+          >
           <SendHorizonalIcon width={16} />
         </button>
       </div>
@@ -97,11 +97,11 @@ const CommentBox = ({ slug }: { slug: string }) => {
       </p>
 
       {openComments && (
-        <div className="flex flex-col gap-4 justify-center">
-          {listOutputCommentsArticel.map((c, i) => (
+        <div className="flex flex-col gap-4 max-h-[35rem] overflow-auto h-full shrink-0">
+            {listOutputCommentsArticel.length > 0 ? listOutputCommentsArticel.map((c, i) => (
             <div
-              className={`${
-                i == 0 && newCommentHighLight && "bg-stone-100"
+              className={`transition duration-500 ${
+                i == 0 && newCommentHighLight && "bg-stone-100 "
               } flex flex-col gap-0`}
               key={i}
             >
@@ -123,7 +123,13 @@ const CommentBox = ({ slug }: { slug: string }) => {
                 <p className="text-sm mt-1">{c.comment}</p>
               </span>
             </div>
-          ))}
+          )): (
+            // SKELETON LOADING
+            <>
+            <div className="w-full h-8 bg-stone-200 animate-pulse rounded-xs"/>
+            <div className="w-[50%] h-8 bg-stone-200 animate-pulse rounded-xs" style={{ animationDelay: "0.4s" }}/>
+            </>
+          )}
         </div>
       )}
     </div>
