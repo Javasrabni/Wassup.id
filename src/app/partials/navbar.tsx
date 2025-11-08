@@ -14,7 +14,7 @@ const Navbar = () => {
     return (
         <div className='w-full h-20 border-b-1 border-gray-200 flex items-center justify-center px-8'>
             <div className='max-w-[60rem] w-full flex items-center justify-between'>
-                <Link href={'/'}><h1 className='text-xl font-bold'>Wassup.id</h1></Link>
+                <Link href={'/'}><h1 className='text-xl font-bold'>Opinion Journey</h1></Link>
 
                 <span className={`${pathname == '/' ? 'hidden' : 'hidden sm:flex'}`}>
                     <SearchInput value={searchInputValue} onchange={setSearchInputValue} placeholder="Cari artikel ..." withButton={false} />

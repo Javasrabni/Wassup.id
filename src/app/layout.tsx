@@ -6,6 +6,7 @@ import "./globals.css";
 import Navbar from "./partials/navbar";
 import Content from "./partials/content";
 import Sidebar from "./partials/sidebar";
+import Footer from "./partials/footer";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -19,7 +20,8 @@ const inter = Inter({
 });
 export const metadata: Metadata = {
   title: "Wassup.id",
-  description: "Ngobrolin dunia ala gaya kita!, Tempat lo dapet kabar terkini, dibahas dengan cara paling santai. Nggak ribet, nggak kaku - karena berita tuh harusnya kayak ngobrol sama temen.",
+  description:
+    "Ngobrolin dunia ala gaya kita!, Tempat lo dapet kabar terkini, dibahas dengan cara paling santai. Nggak ribet, nggak kaku - karena berita tuh harusnya kayak ngobrol sama temen.",
 };
 
 export default function RootLayout({
@@ -29,21 +31,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${newsreader.variable} ${inter.variable}`}>
-      <body
-        className={`antialiased`}
-      >
+      <body className={`antialiased`}>
         <Navbar />
-        <div className="w-full h-screen flex p-8">
-          <div className="w-full max-w-[60rem] mx-auto">
+        <div className="w-full flex flex-col">
+          <div className="w-full max-w-[60rem] mx-auto p-8">
             <Content>{children}</Content>
-
+          </div>
+          <div className="w-full max-w-[60rem] mx-auto">
+            <Footer />
           </div>
         </div>
 
         <div className="flex md:hidden">
           <Sidebar />
         </div>
-
       </body>
     </html>
   );

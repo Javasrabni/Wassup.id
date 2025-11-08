@@ -41,6 +41,11 @@ const CommentBox = ({ slug }: { slug: string }) => {
 
       loadComments();
 
+      const data = await response.json()
+      if(!data.success){
+        alert(data.message)
+      }
+
       if (!response.ok) {
         console.log(response.statusText);
         alert("Terjadi kesalahan server.");
@@ -79,6 +84,7 @@ const CommentBox = ({ slug }: { slug: string }) => {
           className="w-full bg-stone-100 min-h-[10rem] p-4 resize-none"
           placeholder="Komentar kamu terkait topik ini ..."
           onChange={(v) => setTextAreaValue(v.target.value)}
+          maxLength={500}
           value={textAreaValue}
           />
         <button

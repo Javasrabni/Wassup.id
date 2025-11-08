@@ -110,7 +110,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
           </div>
 
           {/* SIDE FOOTER */}
-          <div className="pt-12 flex flex-col gap-4 max-w-[19rem]">
+          <div className="pt-12 flex flex-col gap-4 max-w-[19rem] shrink-0">
             {/* Komentar */}
             <div className="flex flex-col gap-2 mb-4">
               <h1 className="text-xl font-bold">
