@@ -30,11 +30,7 @@ export default function HalamanNavData({ params }: Props) {
     const { slug } = params
     const data = NavbarData.find((i) => slug.toLowerCase().includes(i.title.replace(/\s+/g, '-').toLowerCase()))
     if (!slug) return notFound()
-
     if (!data) return notFound()
-
-
-
 
     return (
         <>

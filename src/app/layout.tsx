@@ -33,11 +33,11 @@ export default function RootLayout({
     <html lang="id" className={`${newsreader.variable} ${inter.variable}`}>
       <body className={`antialiased`}>
         <Navbar />
-        <div className="w-full flex flex-col">
-          <div className="w-full max-w-[60rem] mx-auto p-8">
+        <div className="w-full h-full flex flex-col">
+          <div className="w-full h-full max-w-[60rem] mx-auto p-8">
             <Content>{children}</Content>
           </div>
-          <div className="w-full max-w-[60rem] mx-auto">
+          <div className="w-full max-w-[60rem] mx-auto mt-10">
             <Footer />
           </div>
         </div>

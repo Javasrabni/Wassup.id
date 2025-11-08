@@ -82,7 +82,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="mx-auto pb-10 w-full flex flex-col gap-8">
+      <div className="mx-auto w-full flex flex-col gap-8">
         {/* CONTENT */}
         <div className="prose w-full prose-p:my-4 flex flex-col md:flex-row justify-between gap-8">
           {/* Article viewed */}

@@ -22,13 +22,13 @@ const Footer = () => {
           {/* LIST */}
           <div className="flex flex-row gap-8 w-full text-sm">
             <div className="flex flex-col gap-2">
-              <Link href={""} className="hover:text-stone-400">
+              <Link href={"/inf/tentang-kami"} className="hover:text-stone-400">
                 Tentang Kami
               </Link>
               <Link href={""} className="text-black hover:text-stone-400">
                 Kontak
               </Link>
-              <Link href={""} className="text-black hover:text-stone-400">
+              <Link href={"/"} className="text-black hover:text-stone-400">
                 Artikel
               </Link>
             </div>

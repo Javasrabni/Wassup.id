@@ -6,7 +6,7 @@ const CategoryListPage = ({params}: {params: {category: string}}) => {
     const findKey = category.replace('-', ' ')
 
   return (
-    <div>
+    <div className='h-full min-h-screen'>
       <ArtikelDataParsing featured_article={false} category={findKey} />
     </div>
   )

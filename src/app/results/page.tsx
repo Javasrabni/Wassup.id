@@ -9,9 +9,9 @@ export function SearchPage() {
 
     const matchData = DataArtikel.filter((i) => i.title.toLowerCase().includes(data.toLowerCase()) || i.content.toLowerCase().includes(data.toLowerCase()))
     return (
-        <div className='flex flex-col gap-4 w-full h-fit'>
+        <div className='flex flex-col gap-4 w-full h-full'>
             <p>Hasil untuk "<b>{data}</b>"</p>
-            <div className='w-full h-screen flex flex-col gap-8'>
+            <div className='w-full h-full min-h-screen flex flex-col gap-8'>
                 {matchData.length > 0 ? (
                     <>
                         {matchData.map(i =>

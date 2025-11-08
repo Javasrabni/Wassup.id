@@ -50,7 +50,7 @@ const AboutTeam = () => {
         return () => clearInterval(interval);
     }, [autoScroll]);
     return (
-        <div className='flex w-full h-full items-center justify-center  gap-16 flex-col'>
+        <div className='flex w-full h-screen items-center justify-center  gap-16 flex-col'>
 
             <div className='flex items-center justify-center flex-col text-center'>
                 <h1 className='text-2xl'>People Behind the Work</h1>

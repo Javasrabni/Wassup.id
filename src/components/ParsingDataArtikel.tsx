@@ -23,7 +23,7 @@ export default function ArtikelDataParsing({
     <div className={`${featured_article && "mt-[-26px]"} flex flex-col gap-8`}>
       <h1 className="text-lg sm:text-xl font-bold font-['Inter']">{judul}</h1>
       {filteredData.length > 0 ? filteredData.map((i) => (
-        <div key={i.id} className="flex gap-4 cursor-pointer">
+        <div key={i.id} className="flex gap-4">
           <div className="relative w-[240px] h-[168px] shrink-0">
             <Image
               src={`${i.thumbnail}`}
