@@ -5,9 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Globe, Instagram } from 'lucide-react'
 import { useRef, useState, useEffect } from 'react'
-
-
-
 interface team {
     nama: string,
     id: number,

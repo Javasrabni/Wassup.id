@@ -1,15 +1,16 @@
-import ArtikelDataParsing from '@/components/ParsingDataArtikel'
-import React from 'react'
+import ArtikelDataParsing from "@/components/ParsingDataArtikel";
+import React from "react";
 
-const CategoryListPage = ({params}: {params: {category: string}}) => {
-    const {category} = params
-    const findKey = category.replace('-', ' ')
+const CategoryListPage = ({ params }: { params: { category: string } }) => {
+  const { category } = params;
+  const findKey = category.replace("-", " ");
 
   return (
-    <div className='h-full min-h-screen'>
+    <div className="h-full">
       <ArtikelDataParsing featured_article={false} category={findKey} />
-    </div>
-  )
-}
 
-export default CategoryListPage
+    </div>
+  );
+};
+
+export default CategoryListPage;

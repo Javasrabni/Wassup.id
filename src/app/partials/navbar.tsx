@@ -35,7 +35,7 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            href={""}
+            href={"/auth/login"}
             className="bg-stone-100 px-4 py-1 rounded-xs hover:outline-1"
           >
             <span className="flex flex-row gap-2 items-center">

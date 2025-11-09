@@ -11,7 +11,7 @@ export function SearchPage() {
     return (
         <div className='flex flex-col gap-4 w-full h-full'>
             <p>Hasil untuk "<b>{data}</b>"</p>
-            <div className='w-full h-full min-h-screen flex flex-col gap-8'>
+            <div className='w-full h-full flex flex-col gap-8'>
                 {matchData.length > 0 ? (
                     <>
                         {matchData.map(i =>

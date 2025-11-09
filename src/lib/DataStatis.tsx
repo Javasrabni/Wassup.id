@@ -89,5 +89,3 @@ export const DataArtikel: Data[] = [
       "erkadang merokok itu menenangkan tetapi dibalik ketenagan tersebut menyimpan bahaya yang perlahan menggerogoti kesehatan layaknya parasit.",
   },
 ];
-
-
