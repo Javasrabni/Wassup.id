@@ -5,6 +5,7 @@ import SearchInput from "@/components/SearchInput";
 import { DataTopik } from "@/lib/DataStatis";
 import { useState } from "react";
 import Link from "next/link";
+import ParsingAllUser from "@/components/parsingAllUser";
 
 export default function Home() {
   const [searchInputValue, setSearchInputValue] = useState("");
@@ -30,24 +31,22 @@ export default function Home() {
       </div>
 
       {/* TRENDING */}
-      <div className="w-full flex items-center justify-between gap-8">
-        <p className="text-black py-2 text-xs font-bold uppercase tracking-widest shrink-0 select-none">
+      <div className="w-full flex flex-row gap-8">
+        <p className="text-black text-xs mt-[2.5px] font-bold uppercase tracking-widest shrink-0 select-none">
           TOPIK
         </p>
-        <div className="w-full pl-8 overflow-x-auto">
-          <ul className="flex gap-8 w-fit shrink-0">
-            {DataTopik.map((i, idx) => (
-              <div key={i.id} className="flex gap-8 ">
-                <Link href={`/read/${i.string.toLowerCase().replace(' ','-')}`}>
-                  <li className="shrink-0 cursor-pointer hover:text-gray-400">
-                    {i.string}
-                  </li>
-                </Link>
-                {idx < DataTopik.length - 1 && <div> |</div>}
-              </div>
-            ))}
-          </ul>
-        </div>
+        <ul className="gap-8 w-full pl-8 flex flex-row items-center overflow-x-auto pb-4">
+          {DataTopik.map((i, idx) => (
+            <div key={i.id} className="flex gap-8 shrink-0">
+              <Link href={`/read/${i.string.toLowerCase().replace(" ", "-")}`}>
+                <li className="cursor-pointer hover:text-gray-400">
+                  {i.string}
+                </li>
+              </Link>
+              {idx < DataTopik.length - 1 && <div> |</div>}
+            </div>
+          ))}
+        </ul>
       </div>
 
       {/* ARTIKEL */}
@@ -59,20 +58,17 @@ export default function Home() {
         </div>
 
         {/* SIDE CONTENT DISPLAY*/}
-        <div className="max-w-[16rem] mt-8 shrink-0">
+        <div className="max-w-[16rem] mt-8 shrink-0 flex flex-col gap-8">
           <p className="text-justify text-sm">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem
             eveniet, quod pariatur sunt voluptas numquam est esse error dolore
             possimus qui obcaecati nam, labore explicabo nemo deserunt harum.
             Possimus, natus.
           </p>
-          <ul className="list-decimal pl-6 mt-4 gap-4 flex flex-col">
-            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
-            <li>
-              Quod eligendi error debitis aliquam quibusdam vitae dignissimos
-              maiores aspernatur harum.
-            </li>
-          </ul>
+          <div className="text-sm flex flex-col gap-4">
+            <h1 className="font-semibold">Writers of The Month</h1>
+            <ParsingAllUser />
+          </div>
         </div>
       </div>
     </div>

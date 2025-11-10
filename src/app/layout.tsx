@@ -8,6 +8,9 @@ import Content from "./partials/content";
 import Sidebar from "./partials/sidebar";
 import Footer from "./partials/footer";
 
+// Context
+import { UserProvider } from "@/context/UserContext";
+
 const newsreader = Newsreader({
   subsets: ["latin"],
   variable: "--font-newsreader",
@@ -32,19 +35,21 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${newsreader.variable} ${inter.variable}`}>
       <body className={`antialiased`}>
-        <Navbar />
-        <div className="w-full h-full flex flex-col">
-          <div className="w-full h-full min-h-screen max-w-[60rem] mx-auto p-8">
-            <Content>{children}</Content>
+        <UserProvider>
+          <Navbar />
+          <div className="w-full h-full flex flex-col">
+            <div className="w-full h-full min-h-screen max-w-[60rem] mx-auto p-8">
+              <Content>{children}</Content>
+            </div>
+            <div className="w-full max-w-[60rem] mx-auto mt-10">
+              <Footer />
+            </div>
           </div>
-          <div className="w-full max-w-[60rem] mx-auto mt-10">
-            <Footer />
-          </div>
-        </div>
 
-        <div className="flex md:hidden">
-          <Sidebar />
-        </div>
+          <div className="flex md:hidden">
+            <Sidebar />
+          </div>
+        </UserProvider>
       </body>
     </html>
   );

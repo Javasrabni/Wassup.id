@@ -1,8 +1,17 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useUser } from "@/context/UserContext";
 
 export default function LoginPage() {
+  // Jika user sudah login redirect ke dashboard
+  const { user, loading } = useUser();
+  if (loading) return null;
+  if (user) {
+    return window.location.replace("/dashboard");
+  }
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +37,7 @@ export default function LoginPage() {
   return (
     <div className="w-full h-full min-h-[80vh] flex flex-col gap-16 items-center justify-center  ">
       <div className="flex flex-col gap-0 text-center">
-        <h1 className="text-2xl">Masuk sebagai penulis</h1>
+        <h1 className="text-2xl">Daftar sebagai penulis</h1>
         <p className="text-base">Bagikan pengerahuan, tulis pendapatmu.</p>
       </div>
       <div className="flex flex-col gap-12 w-full max-w-[20rem]">
@@ -39,6 +48,7 @@ export default function LoginPage() {
               placeholder="Username"
               onChange={(e) => setUsername(e.target.value)}
               className="bg-stone-100 rounded-xs p-2 w-full"
+              required
             />
             <input
               type="text"
@@ -58,12 +68,12 @@ export default function LoginPage() {
               type="submit"
               className="bg-stone-900 text-sm px-8 py-1 text-white font-semibold cursor-pointer hover:bg-stone-100 hover:text-stone-900"
             >
-              Masuk
+              Daftar
             </button>
             <p className="text-sm text-">
               Sudah memiliki akun?{" "}
               <span className="text-blue-400 underline cursor-pointer">
-                Daftar
+                <Link href={"/auth/login"}>Masuk</Link>
               </span>
             </p>
           </div>

@@ -22,12 +22,14 @@ export const NavbarData: Navbar[] = [
 // }
 
 export const DataTopik = [
-  { id: 1, string: "Sains" },
+  { id: 1, string: "Hukum" },
   { id: 2, string: "Akademik" },
   { id: 3, string: "Teknologi" },
   { id: 4, string: "Diskusi Opini" },
   { id: 5, string: "Filsafat" },
   { id: 6, string: "Inovasi" },
+  { id: 7, string: "Sains" },
+  { id: 8, string: "Sains" },
 ] as const
 
 export type CategoryType = typeof DataTopik[number]["string"];

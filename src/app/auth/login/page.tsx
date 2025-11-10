@@ -1,10 +1,22 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useUser } from "@/context/UserContext";
 
 export default function LoginPage() {
+
+  // Jika user sudah login redirect ke dashboard
+  const {user, loading} = useUser() 
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  if(loading) return null
+  if(user) {
+    return window.location.replace(`/profile/${user?.username}`)
+  }
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -14,12 +26,13 @@ export default function LoginPage() {
       body: JSON.stringify({ email, password }),
     });
 
-    if (res.ok) {
-      window.location.href = "/dashboard";
-    } else {
+    if (!res.ok) {
       const { message } = await res.json();
       alert(message || "Login gagal.");
       console.log(message);
+      return
+    } else {
+      window.location.href = `/`;
     }
   }
 
@@ -56,7 +69,7 @@ export default function LoginPage() {
             <p className="text-sm text-">
               Belum memiliki akun?{" "}
               <span className="text-blue-400 underline cursor-pointer">
-                Daftar
+                <Link href={'/auth/register'}>Daftar</Link>
               </span>
             </p>
           </div>

@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       );
     }
     // Cek Password
-    const comparePass = bcrypt.compare(password, user.password);
+    const comparePass = await bcrypt.compare(password, user.password);
     if (!comparePass) {
       return NextResponse.json({ message: "Password salah." }, { status: 401 });
     }
