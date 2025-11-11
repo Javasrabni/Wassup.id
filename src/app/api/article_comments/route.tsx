@@ -1,5 +1,5 @@
-import { connectDB } from "@/lib/mongodb";
 import Comment from "@/models/Comment";
+import { connectDB } from "@/lib/db/mongodb";
 
 // POST
 export async function POST(request: Request) {

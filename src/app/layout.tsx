@@ -38,7 +38,7 @@ export default function RootLayout({
         <UserProvider>
           <Navbar />
           <div className="w-full h-full flex flex-col">
-            <div className="w-full h-full min-h-screen max-w-[60rem] mx-auto p-8">
+            <div className="w-full h-full min-h-screen max-w-[60rem] mx-auto p-8 ">
               <Content>{children}</Content>
             </div>
             <div className="w-full max-w-[60rem] mx-auto mt-10">

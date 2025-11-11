@@ -1,13 +1,15 @@
-import ArtikelDataParsing from "@/components/ParsingDataArtikel";
+import DataUserPosts from "@/components/server/DataUserPosts";
+import { GetUserArticlePosts } from "@/lib/user_article/getAllPosts";
 import React from "react";
 
-const CategoryListPage = ({ params }: { params: { category: string } }) => {
+const CategoryListPage = async ({ params }: { params: { category: string } }) => {
+  const article = await GetUserArticlePosts()
   const { category } = params;
   const findKey = category.replace("-", " ");
 
   return (
     <div className="h-full">
-      <ArtikelDataParsing featured_article={false} category={findKey} />
+      <DataUserPosts articles={article} category={findKey.toString()} />
 
     </div>
   );

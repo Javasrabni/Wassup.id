@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import UserAccount from "@/models/UserAccount";
-import { connectDB } from "@/lib/mongodb";
+import { connectDB } from "@/lib/db/mongodb";
 
 export async function GET(request: Request, {params}: {params: {slug: string}}) {
     try {
@@ -16,4 +16,4 @@ export async function GET(request: Request, {params}: {params: {slug: string}}) 
     } catch (err) {
             return NextResponse.json({ message: "Server error", error: err }, { status: 500 });
     }
-}   
+}

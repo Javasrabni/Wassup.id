@@ -5,8 +5,11 @@ import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import { Eye, MessageSquareTextIcon, UserRoundPenIcon } from "lucide-react";
 import CommentBox from "@/components/CommentBox";
-import ArtikelDataParsing from "@/components/ParsingDataArtikel";
 import ArticleView from "@/models/ArticleView";
+
+import DataUserPosts from "@/components/server/DataUserPosts";
+import { GetArticleDetail } from "@/lib/user_article/getDetailPosts";
+import { GetUserArticlePosts } from "@/lib/user_article/getAllPosts";
 
 interface ArticleParams {
   params: {
@@ -47,10 +50,8 @@ export async function generateMetadata({
 
 async function ReadDetailArticle({ params }: ArticleParams) {
   const { slug } = params;
-
-  const data = DataArtikel.find(
-    (i) => i.slug.replace("?", "") == slug.replace("?", "")
-  );
+  const data = await GetArticleDetail(slug)
+  const userArticle = await GetUserArticlePosts()
 
   if (!data) notFound();
 
@@ -86,7 +87,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
         {/* CONTENT */}
         <div className="prose w-full prose-p:my-4 flex flex-col md:flex-row justify-between gap-8">
           {/* Article viewed */}
-          <div className="max-w-[39rem]">
+          <div className="max-w-[39rem] w-full">
             <div className="flex flex-row items-center gap-4 mb-8">
               <Eye width={16} className="text-stone-400" />
               <p className="text-sm">
@@ -100,7 +101,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
               <p className="text-sm text-stone-400">
                 <span className="flex flex-row gap-2 items-center">
                   <UserRoundPenIcon width={16} />
-                  {data.author}, {data.date}
+                  {data.author}, {new Date(data.updatedAt).toLocaleDateString("id-ID", {day: 'numeric', month: 'long', year: 'numeric'})}
                 </span>
               </p>
             </div>
@@ -109,8 +110,8 @@ async function ReadDetailArticle({ params }: ArticleParams) {
             </div>
           </div>
 
-          {/* SIDE FOOTER */}
-          <div className="pt-12 flex flex-col gap-4 max-w-[19rem] shrink-0">
+          {/* SIDE */}
+          <div className="pt-12 flex flex-col gap-4 max-w-[19rem] w-full shrink-0">
             {/* Komentar */}
             <div className="flex flex-col gap-2 mb-4">
               <h1 className="text-xl font-bold">
@@ -129,10 +130,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
         <div className="border-b border-gray-200 pt-4" /> {/* Line Border */}
         {/* Rekomendasi Topik lain */}
         <div>
-          <ArtikelDataParsing
-            judul="Baca juga topik lainnya"
-            featured_article={false}
-          />
+          <DataUserPosts articles={userArticle} judul={"Baca juga topik lainnya"} />
         </div>
       </div>
     </>

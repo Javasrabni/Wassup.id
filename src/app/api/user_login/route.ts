@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import UserAccount from "@/models/UserAccount";
 import bcrypt from "bcryptjs";
-import { connectDB } from "@/lib/mongodb";
+import { connectDB } from "@/lib/db/mongodb";
 import { SignJWT } from "jose";
 
 export async function POST(req: Request) {

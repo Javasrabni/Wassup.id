@@ -20,14 +20,18 @@ const CommentBox = ({ slug }: { slug: string }) => {
 
   const [lengthComments, setLengtComments] = useState(0); // Length of Comments
   const [newCommentHighLight, setNewCommentHighLight] = useState(false);
+  const [loading, setLoading] = useState(true)
 
+  // LOAD COMMENTS
   const loadComments = async () => {
     const res = await fetch(`/api/article_comments?articleSlug=${slug}`);
     const data = await res.json();
-    setListOutputCommentsArticel(data ?? []);
-    setLengtComments(data?.length ?? 0);
+      setListOutputCommentsArticel(data ?? []);
+      setLengtComments(data?.length ?? 0);
+      setLoading(false)
   };
 
+  // SUBMIT COMMENT
   const submitComments = async () => {
     try {
       const response = await fetch("/api/article_comments", {
@@ -41,9 +45,9 @@ const CommentBox = ({ slug }: { slug: string }) => {
 
       loadComments();
 
-      const data = await response.json()
-      if(!data.success){
-        alert(data.message)
+      const data = await response.json();
+      if (!data.success) {
+        alert(data.message);
       }
 
       if (!response.ok) {
@@ -61,6 +65,8 @@ const CommentBox = ({ slug }: { slug: string }) => {
       return () => clearTimeout(delay);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -86,11 +92,11 @@ const CommentBox = ({ slug }: { slug: string }) => {
           onChange={(v) => setTextAreaValue(v.target.value)}
           maxLength={500}
           value={textAreaValue}
-          />
+        />
         <button
           className="h-full w-fit px-2 bg-gray-900 text-white cursor-pointer hover:bg-gray-200 hover:text-gray-900"
           onClick={submitComments}
-          >
+        >
           <SendHorizonalIcon width={16} />
         </button>
       </div>
@@ -104,36 +110,43 @@ const CommentBox = ({ slug }: { slug: string }) => {
 
       {openComments && (
         <div className="flex flex-col gap-4 max-h-[35rem] overflow-auto h-full shrink-0">
-            {listOutputCommentsArticel.length > 0 ? listOutputCommentsArticel.map((c, i) => (
-            <div
-              className={`transition duration-500 ${
-                i == 0 && newCommentHighLight && "bg-stone-100 "
-              } flex flex-col gap-0`}
-              key={i}
-            >
-              <span className="flex gap-4 items-center">
-                <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center shrink-0">
-                  <User2Icon width={16} className="text-stone-400" />
-                </div>
-                <p className="text-sm ">
-                  Anonim ·{" "}
-                  <span className="text-gray-400">{new Date(c.date).toLocaleDateString("id-ID", {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                  })}</span>
-                </p>
-              </span>
+          {!loading ? (
+            listOutputCommentsArticel.map((c, i) => (
+              <div
+                className={`transition duration-500 ${
+                  i == 0 && newCommentHighLight && "bg-stone-100 "
+                } flex flex-col gap-0`}
+                key={i}
+              >
+                <span className="flex gap-4 items-center">
+                  <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center shrink-0">
+                    <User2Icon width={16} className="text-stone-400" />
+                  </div>
+                  <p className="text-sm ">
+                    Anonim ·{" "}
+                    <span className="text-gray-400">
+                      {new Date(c.date).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </p>
+                </span>
 
-              <span className="ml-12">
-                <p className="text-sm mt-1">{c.comment}</p>
-              </span>
-            </div>
-          )): (
+                <span className="ml-12">
+                  <p className="text-sm mt-1">{c.comment}</p>
+                </span>
+              </div>
+            ))
+          ) : (
             // SKELETON LOADING
             <>
-            <div className="w-full h-8 bg-stone-200 animate-pulse rounded-xs"/>
-            <div className="w-[50%] h-8 bg-stone-200 animate-pulse rounded-xs" style={{ animationDelay: "0.4s" }}/>
+              <div className="w-full h-8 bg-stone-200 animate-pulse rounded-xs" />
+              <div
+                className="w-[50%] h-8 bg-stone-200 animate-pulse rounded-xs"
+                style={{ animationDelay: "0.4s" }}
+              />
             </>
           )}
         </div>

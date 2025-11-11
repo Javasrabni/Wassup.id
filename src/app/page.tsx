@@ -1,14 +1,19 @@
-"use client";
+// "use client";
 
-import ArtikelDataParsing from "@/components/ParsingDataArtikel";
+import { GetUserArticlePosts } from "@/lib/user_article/getAllPosts";
+import DataUserPosts from "@/components/server/DataUserPosts";
+
 import SearchInput from "@/components/SearchInput";
 import { DataTopik } from "@/lib/DataStatis";
-import { useState } from "react";
+// import { useState } from "react";
 import Link from "next/link";
 import ParsingAllUser from "@/components/parsingAllUser";
 
-export default function Home() {
-  const [searchInputValue, setSearchInputValue] = useState("");
+
+export default async function Home() {
+  const userArticles = await GetUserArticlePosts()
+  
+  // const [searchInputValue, setSearchInputValue] = useState("");
 
   return (
     <div className="w-full flex flex-col gap-8">
@@ -21,12 +26,12 @@ export default function Home() {
           <h1 className="text-xl sm:text-2xl text-center select-none">
             Ngobrolin dunia ala gaya kita!
           </h1>
-          <SearchInput
-            value={searchInputValue}
-            onchange={setSearchInputValue}
+          {/* <SearchInput
+            // value={searchInputValue}
+            // onchange={setSearchInputValue}
             placeholder="Pengetahuan hari ini ..."
             withButton={true}
-          />
+          /> */}
         </div>
       </div>
 
@@ -53,8 +58,9 @@ export default function Home() {
       <div className="flex w-full justify-between gap-4 mt-[-2.5rem]">
         {/* MAIN CONTENT DISPLAY*/}
         <div className="mt-8 flex flex-col gap-8">
-          <ArtikelDataParsing judul="" featured_article />
-          <ArtikelDataParsing judul="Terbaru" featured_article={false} />
+          <DataUserPosts articles={userArticles} />
+          {/* <ArtikelDataParsing judul="" featured_article /> */}
+          {/* <ArtikelDataParsing judul="Terbaru" featured_article={false} /> */}
         </div>
 
         {/* SIDE CONTENT DISPLAY*/}

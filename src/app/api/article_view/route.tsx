@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import ArticleView from "@/models/ArticleView";
-import { connectDB } from "@/lib/mongodb";
+import { connectDB } from "@/lib/db/mongodb";
 
 export async function GET(request: Request) {
   await connectDB();
