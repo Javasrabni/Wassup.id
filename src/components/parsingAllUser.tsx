@@ -17,7 +17,6 @@ const ParsingAllUser = () => {
       try {
         const res = await fetch("/api/user");
         const data = await res.json();
-        console.log(data);
         if (data.success) {
           setAllUsers(data.data);
         } else {
@@ -48,7 +47,7 @@ const ParsingAllUser = () => {
             allUsers.map((v, idx) => (
               <Link
                 key={idx}
-                href={`/profile/${v.username}`}
+                href={`/profile/${v.username.replaceAll(' ','-')}/${v._id}`}
                 className="flex flex-row gap-4 items-center"
               >
                 <DefaultNonAvatar username={v.username.toString()} />

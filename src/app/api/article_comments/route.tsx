@@ -1,13 +1,13 @@
 import Comment from "@/models/Comment";
 import { connectDB } from "@/lib/db/mongodb";
-
+import { Types } from "mongoose";
 // POST
 export async function POST(request: Request) {
   try {
     await connectDB();
-    const { articleSlug, comment } = await request.json();
+    const { articleSlug, articleId, comment, commentaredBy, IdCommentaredBy} = await request.json();
 
-    if (!articleSlug || !comment) {
+    if (!articleSlug || !comment || !articleId) {
       return Response.json(
         {
           success: false,
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-    await Comment.create({ articleSlug, comment });
+    await Comment.create({ articleId, articleSlug, comment, commentaredBy, IdCommentaredBy });
     return Response.json({ success: true });
   } catch (error: any) {
     if (error.name === "ValidationError") {
@@ -41,11 +41,15 @@ export async function GET(request: Request) {
 
   const { searchParams } = new URL(request.url);
   const articleSlug = searchParams.get("articleSlug");
+  const articleId = searchParams.get("articleId");
 
-  const comments = await Comment.find({ articleSlug }).sort({ createdAt: -1 });
+  if (!articleSlug || !articleId) {
+    return Response.json([])
+  }
+  const comments = await Comment.find({ articleSlug, articleId }).sort({ createdAt: -1 });
 
   // Return only comment text array (sesuai kebutuhan komponen kamu)
   return Response.json(
-    comments.map((c) => ({ comment: c.comment, date: c.createdAt }))
+    comments.map((c) => ({ comment: c.comment, date: c.createdAt, commentaredBy: c.commentaredBy }))
   );
 }

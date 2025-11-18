@@ -33,8 +33,8 @@ const Navbar = () => {
 
         <span className={`${pathname == "/" ? "hidden" : "hidden sm:flex"}`}>
           <SearchInput
-            value={searchInputValue}
-            onchange={setSearchInputValue}
+            // value={searchInputValue}
+            // onchange={setSearchInputValue}
             placeholder="Cari artikel ..."
             withButton={false}
           />
@@ -54,7 +54,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                href={`/profile/${user.username.replaceAll(" ", "-")}`}
+                href={`/profile/${user.username.replaceAll(" ", "-")}/${user.id}`}
                 onClick={() => setProfileHover(false)}
                 className="flex flex-col gap-4 relative"
                 onMouseOver={() => setProfileHover(true)}

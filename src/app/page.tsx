@@ -13,8 +13,6 @@ import ParsingAllUser from "@/components/parsingAllUser";
 export default async function Home() {
   const userArticles = await GetUserArticlePosts()
   
-  // const [searchInputValue, setSearchInputValue] = useState("");
-
   return (
     <div className="w-full flex flex-col gap-8">
       {/* BANNER */}
@@ -26,12 +24,12 @@ export default async function Home() {
           <h1 className="text-xl sm:text-2xl text-center select-none">
             Ngobrolin dunia ala gaya kita!
           </h1>
-          {/* <SearchInput
+          <SearchInput
             // value={searchInputValue}
             // onchange={setSearchInputValue}
             placeholder="Pengetahuan hari ini ..."
             withButton={true}
-          /> */}
+          />
         </div>
       </div>
 
@@ -58,7 +56,7 @@ export default async function Home() {
       <div className="flex w-full justify-between gap-4 mt-[-2.5rem]">
         {/* MAIN CONTENT DISPLAY*/}
         <div className="mt-8 flex flex-col gap-8">
-          <DataUserPosts articles={userArticles} />
+          <DataUserPosts articles={userArticles} onProfilePage={false} />
           {/* <ArtikelDataParsing judul="" featured_article /> */}
           {/* <ArtikelDataParsing judul="Terbaru" featured_article={false} /> */}
         </div>

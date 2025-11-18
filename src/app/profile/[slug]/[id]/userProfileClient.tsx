@@ -3,7 +3,8 @@ import React from "react";
 import { useUser } from "@/context/UserContext";
 import DataUserPosts from "@/components/server/DataUserPosts";
 
-function UserProfileClient({ profile, articles}: { profile: any, articles: any[] }) {
+
+function UserProfileClient({ profile, articles, lengthUserPosts }: { profile: any, articles: any[], lengthUserPosts: number | string }) {
   const { user, loading } = useUser()
   const isOwner = profile?.email === user?.email
 
@@ -18,13 +19,16 @@ function UserProfileClient({ profile, articles}: { profile: any, articles: any[]
         </div>
         <div>
           <h1 className="text-xl">{profile?.username}</h1>
-          <p className="text-sm">{profile?.email}</p>
+          <p className="text-sm text-stone-400">{profile?.email}</p>
+          <div className="mt-2">
+            <p className="text-sm"><b>{lengthUserPosts}</b> post</p>
+          </div>
         </div>
       </div>
 
       {/* POSTS */}
       <div className="w-full border-t boder-1 border-stone-200">
-        <DataUserPosts articles={articles} author={profile?.username}/>
+        <DataUserPosts articles={articles} author={profile?.username} onProfilePage={isOwner ? true : false} userId={user?.id} />
       </div>
 
       {isOwner && <p>ini profile lu </p>}

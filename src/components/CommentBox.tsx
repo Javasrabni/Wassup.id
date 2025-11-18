@@ -2,13 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { SendHorizonalIcon, User2Icon } from "lucide-react";
+import { useUser } from "@/context/UserContext";
 
 interface CommentData {
   comment: string;
   date: string;
+  commentaredBy: string
 }
 
-const CommentBox = ({ slug }: { slug: string }) => {
+const CommentBox = ({ slug, articleId }: { slug: string, articleId: string | undefined }) => {
+  const { user } = useUser()
   // State Textarea
   const [textAreaValue, setTextAreaValue] = useState("");
 
@@ -24,11 +27,11 @@ const CommentBox = ({ slug }: { slug: string }) => {
 
   // LOAD COMMENTS
   const loadComments = async () => {
-    const res = await fetch(`/api/article_comments?articleSlug=${slug}`);
+    const res = await fetch(`/api/article_comments?articleSlug=${slug}&articleId=${articleId}`);
     const data = await res.json();
-      setListOutputCommentsArticel(data ?? []);
-      setLengtComments(data?.length ?? 0);
-      setLoading(false)
+    setListOutputCommentsArticel(data ?? []);
+    setLengtComments(data?.length ?? 0);
+    setLoading(false)
   };
 
   // SUBMIT COMMENT
@@ -39,7 +42,10 @@ const CommentBox = ({ slug }: { slug: string }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           articleSlug: slug,
+          articleId: articleId,
           comment: textAreaValue,
+          commentaredBy: user?.username || "Anonim",
+          IdCommentaredBy: user?.id
         }),
       });
 
@@ -113,9 +119,8 @@ const CommentBox = ({ slug }: { slug: string }) => {
           {!loading ? (
             listOutputCommentsArticel.map((c, i) => (
               <div
-                className={`transition duration-500 ${
-                  i == 0 && newCommentHighLight && "bg-stone-100 "
-                } flex flex-col gap-0`}
+                className={`transition duration-500 ${i == 0 && newCommentHighLight && "bg-stone-100 "
+                  } flex flex-col gap-0`}
                 key={i}
               >
                 <span className="flex gap-4 items-center">
@@ -123,7 +128,7 @@ const CommentBox = ({ slug }: { slug: string }) => {
                     <User2Icon width={16} className="text-stone-400" />
                   </div>
                   <p className="text-sm ">
-                    Anonim ·{" "}
+                    {c.commentaredBy} ·{" "}
                     <span className="text-gray-400">
                       {new Date(c.date).toLocaleDateString("id-ID", {
                         day: "numeric",

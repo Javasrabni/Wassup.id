@@ -1,25 +1,29 @@
 'use client'
 
 import { Search } from "lucide-react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 
 interface SearchInput {
-    value: string,
-    onchange: (val: string) => void,
+    // value: string,
+    // onchange: (val: string) => void,
     placeholder?: string,
     withButton: boolean
 }
 
-export default function SearchInput({ value, onchange, placeholder, withButton }: SearchInput) {
+export default function SearchInput({ placeholder, withButton }: SearchInput) {
     const router = useRouter()
 
+    const [searchInputValue, setSearchInputValue] = useState("");
+
+
     const SearchPath = () => {
-        if (!value || value.trim() === '') return '/'
-        return `/results?search=${value.replace(/\s+/g, '+').toLowerCase()}`
+        if (!searchInputValue || searchInputValue.trim() === '') return '/'
+        return `/results?search=${searchInputValue.replace(/\s+/g, '+').toLowerCase()}`
     }
 
     const handleKeydown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (!value || value.trim() === '') return
+        if (!searchInputValue || searchInputValue.trim() === '') return
         if (e.key === "Enter") {
             router.push(SearchPath())
         }
@@ -29,10 +33,10 @@ export default function SearchInput({ value, onchange, placeholder, withButton }
         <div className={`${withButton && 'flex gap-2'} w-full`}>
             <input
                 type="search"
-                value={value}
+                value={searchInputValue}
                 placeholder={placeholder}
                 className="border px-3 h-10 w-full outline-none bg-gray-100 text-black"
-                onChange={(e) => onchange(e.target.value)}
+                onChange={(e) => setSearchInputValue(e.target.value)}
                 onKeyDown={handleKeydown}
             />
             {withButton && (

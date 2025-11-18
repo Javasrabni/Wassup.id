@@ -20,7 +20,7 @@ const CreateArticle = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    required: true
+    // required: true
   }, 
   slug: {
     type: String,
@@ -40,10 +40,14 @@ const CreateArticle = new mongoose.Schema({
   },
   category: {
     type: String,
+    default: "Opini"
   },
   visibility: {
-    type: Boolean,
-    default: true
+    type: String,
+    default: "Publik"
+  }, komentarField: {
+    type: String,
+    default: "Aktif"
   }
 }, {timestamps: true});
 

@@ -18,9 +18,10 @@ export async function POST(req: Request) {
       // view,
       category,
       visibility,
+      komentarField
     } = body;
 
-    if (!author || !email || !title || !content || !thumbnail) {
+    if (!author || !email || !title || !content ) {
       return NextResponse.json(
         { success: false, message: "Field wajib tidak boleh kosong." },
         { status: 400 }
@@ -37,6 +38,7 @@ export async function POST(req: Request) {
       description: typeof content === "string" ? content.slice(0, 150) : "",
       category,
       visibility,
+      komentarField
     });
     await newArticle.save();
 
@@ -55,8 +57,23 @@ export async function GET(req: Request) {
     await connectDB();
     const {searchParams} = new URL(req.url)
     const username = searchParams.get("username")
+    const query = searchParams.get("search")
 
-    const findUser = await CreateArticle.find({ author: username });
+    let filter = {}
+
+    if(username) {
+      filter = {author: username}
+    } else if (query) {
+      filter = {
+        $or: [
+          {title: {$regex: query, $options: "i"}},
+          {content: {$regex: query, $options: "i"}}
+        ]
+      }
+    }
+
+    const findUser = await CreateArticle.find(filter);
+    
     if (!findUser)
       return NextResponse.json(
         { success: false, message: "Gagal memuat data" },

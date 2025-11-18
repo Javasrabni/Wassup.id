@@ -48,6 +48,7 @@ export default function LoginPage() {
               placeholder="Username"
               onChange={(e) => setUsername(e.target.value)}
               className="bg-stone-100 rounded-xs p-2 w-full"
+              maxLength={25}
               required
             />
             <input

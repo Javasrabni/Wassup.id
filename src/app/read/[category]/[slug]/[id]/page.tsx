@@ -10,22 +10,25 @@ import ArticleView from "@/models/ArticleView";
 import DataUserPosts from "@/components/server/DataUserPosts";
 import { GetArticleDetail } from "@/lib/user_article/getDetailPosts";
 import { GetUserArticlePosts } from "@/lib/user_article/getAllPosts";
+import Link from "next/link";
 
 interface ArticleParams {
   params: {
     category: string;
     slug: string;
+    id: any;
   };
 }
 
 export async function generateMetadata({
   params,
 }: ArticleParams): Promise<Metadata> {
-  const { slug } = params;
+  const { slug, id } = params;
+  const data = await GetArticleDetail({ slug, id });
 
-  const data = DataArtikel.find(
-    (i) => i.slug.replace("?", "") == slug.replace("?", "")
-  );
+  // const data = DataArtikel.find(
+  //   (i) => i.slug.replace("?", "") == slug.replace("?", "")
+  // );
 
   if (!data) {
     return {
@@ -43,15 +46,16 @@ export async function generateMetadata({
       title: data.title,
       description: data.description,
       authors: data.author ? [data.author] : [],
-      publishedTime: data.date,
+      publishedTime: data.createdAt,
     },
   };
 }
 
 async function ReadDetailArticle({ params }: ArticleParams) {
-  const { slug } = params;
-  const data = await GetArticleDetail(slug)
-  const userArticle = await GetUserArticlePosts()
+  const { slug, id } = params;
+  const data = await GetArticleDetail({ slug, id });
+  console.log(data);
+  const userArticle = await GetUserArticlePosts();
 
   if (!data) notFound();
 
@@ -62,18 +66,17 @@ async function ReadDetailArticle({ params }: ArticleParams) {
     "@type": "Article",
     headline: data.title,
     description: data.description,
-    image: `https://wassup.id${data.thumbnail}`,
-    url: `https://wassup.id/read/${params.category}/${params.slug}`,
-    mainEntityOfPage: `https://wassup.id/read/${params.category}/${params.slug}`,
+    image: `${webUrl}${data.thumbnail}`,
+    url: `${webUrl}/read/${params.category}/${params.slug}`,
+    mainEntityOfPage: `${webUrl}/read/${params.category}/${params.slug}`,
     author: data.author ? { "@type": "Person", name: data.author } : undefined,
     publisher: {
       "@type": "Organization",
       name: "Wassup.id",
-      logo: "https://wassup.id/logo.png",
+      logo: `${webUrl}/logo.png`,
     },
     // datePublished: new Date(data.date).toISOString(),
   };
-
 
   return (
     <>
@@ -101,7 +104,18 @@ async function ReadDetailArticle({ params }: ArticleParams) {
               <p className="text-sm text-stone-400">
                 <span className="flex flex-row gap-2 items-center">
                   <UserRoundPenIcon width={16} />
-                  {data.author}, {new Date(data.updatedAt).toLocaleDateString("id-ID", {day: 'numeric', month: 'long', year: 'numeric'})}
+                  <Link
+                    className="underline"
+                    href={`/profile/${data.author.replaceAll(" ", "-")}/${data.authorID
+                      }`}
+                  >
+                    {data.author},
+                  </Link>
+                  {new Date(data.updatedAt).toLocaleDateString("id-ID", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </span>
               </p>
             </div>
@@ -111,26 +125,40 @@ async function ReadDetailArticle({ params }: ArticleParams) {
           </div>
 
           {/* SIDE */}
+          {/* Komentar */}
           <div className="pt-12 flex flex-col gap-4 max-w-[19rem] w-full shrink-0">
-            {/* Komentar */}
-            <div className="flex flex-col gap-2 mb-4">
-              <h1 className="text-xl font-bold">
-                Kamu memiliki pandangan lain tentang topik ini?
-              </h1>
-              <span className="flex flex-row gap-4 text-stone-400 items-center">
-                <MessageSquareTextIcon width={16} />
-                <p className="text-sm text-stone-400">Komentar bersifat anonim.</p>
-              </span>
-            </div>
+            {data.komentarField === "Aktif" ? (
+              <>
+                <div className="flex flex-col gap-2 mb-4">
+                  <h1 className="text-xl font-bold">
+                    Kamu memiliki pandangan lain tentang topik ini?
+                  </h1>
+                  <span className="flex flex-row gap-4 text-stone-400 items-center">
+                    <MessageSquareTextIcon width={16} />
+                    <p className="text-sm text-stone-400">
+                      Komentar bersifat anonim.
+                    </p>
+                  </span>
+                </div>
 
-            {/* Comment box component */}
-            <CommentBox slug={slug} />
+                {/* Comment box component */}
+                <CommentBox slug={slug} articleId={data._id} />
+              </>
+            ) : (
+              <h1 className="text-xl font-bold">
+                Komentar Dinonaktifkan
+              </h1>
+            )}
           </div>
+
         </div>
         <div className="border-b border-gray-200 pt-4" /> {/* Line Border */}
         {/* Rekomendasi Topik lain */}
         <div>
-          <DataUserPosts articles={userArticle} judul={"Baca juga topik lainnya"} />
+          <DataUserPosts
+            articles={userArticle}
+            judul={"Baca juga topik lainnya"}
+          />
         </div>
       </div>
     </>
