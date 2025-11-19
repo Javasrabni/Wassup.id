@@ -57,7 +57,7 @@ const Footer = () => {
       </div>
 
       <p className="text-center text-sm text-stone-400">
-        &copy; Opinion Journey {new Date().getFullYear()}
+        &copy; Wassup.id {new Date().getFullYear()}
       </p>
     </div>
   );
