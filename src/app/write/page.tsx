@@ -15,16 +15,16 @@ const WritePage = () => {
   const router = useRouter();
   //   FIELD
   const [title, setTitle] = useState<string | undefined>("");
-  const [value, setValue] = useState<string | undefined>("Ketik disini ...");
+  const [value, setValue] = useState<string | undefined>("Mulai menulis ...");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
+  const [previewThumbnail, setPreviewThumbnail] = useState<string | null>(null);
   const [category, setCategory] = useState<string | undefined>("Diskusi Opini");
   const [visibility, setVisibility] = useState<string | undefined>("Publik");
   const [komentarField, setKomentarField] = useState<string | undefined>("Aktif")
-  console.log(komentarField)
 
   // KATEGORY LIST
   const ArticleCategory = [
-    { id: 1, string: "Diskusi Opini" },
+    { id: 1, string: "Opini" },
     { id: 2, string: "Akademik" },
     { id: 3, string: "Sains" },
     { id: 4, string: "Hukum" },
@@ -38,8 +38,31 @@ const WritePage = () => {
   const { user, loading } = useUser();
   //   if (loading || !user) return <p>tunggu</p>;
 
+  // UPLOAD IMAGE / THUMBNAIL
+  async function uploadThumbnail(file: any) {
+    const formData = new FormData()
+    formData.append('file', file)
+
+    const res = await fetch('/api/upload_image_CLD', {
+      method: 'POST',
+      body: formData
+    })
+
+    const data = await res.json()
+    if (!data.success) return null
+
+    return data.data.secure_url
+  }
+
+  // POST ARTICLE
   async function PostCreateArticle() {
     try {
+      let thumbnailURL = null;
+
+      if (thumbnail) {
+        thumbnailURL = await uploadThumbnail(thumbnail);
+      }
+
       const res = await fetch("/api/create_article", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -48,7 +71,7 @@ const WritePage = () => {
           email: user?.email,
           title,
           content: value,
-          thumbnail,
+          thumbnail: thumbnailURL,
           slug: title,
           // description: value,
           // featured_article,
@@ -81,14 +104,12 @@ const WritePage = () => {
       <div className="w-full h-full flex flex-row gap-4 pt-16">
         <div className="flex flex-col gap-2">
           <div className="relative w-[240px] h-[168px] shrink-0">
-            {thumbnail ? (
+            {previewThumbnail ? (
               <>
-                {thumbnail?.type.startsWith('image/') && (
-                  <Image src={URL.createObjectURL(thumbnail)} alt="Image Preview" fill className="object-cover rounded-md" />
-                )}
+                <Image src={previewThumbnail} alt="Image Preview" fill className="object-cover rounded-md" />
               </>
             ) : (
-              <UploadFile onFileSelect={(file) => setThumbnail(file)} />
+              <UploadFile onFileSelect={(file) => { setThumbnail(file); setPreviewThumbnail(URL.createObjectURL(file)); }} />
             )}
           </div>
           <p className="text-sm text-center text-stone-400">Thumbnail / Gambar Sampul</p>

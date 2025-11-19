@@ -72,12 +72,12 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
         filteredArticle.map((i) => (
           <div key={i._id} className="flex gap-4">
             <div className="relative w-[240px] h-[168px] shrink-0">
-              <Image
-                src={`/${i.thumbnail}`}
-                alt={`Gambar - ${i.title?.slice(0, 50)}`}
-                fill
-                className="object-cover object-center"
-              />
+                <Image
+                  src={`${i.thumbnail ?? '/'}`}
+                  alt={`Gambar - ${i.title?.slice(0, 50)}`}
+                  fill
+                  className="object-cover object-center rounded-sm"
+                />
             </div>
             <div>
               <p className="leading-6 text-base sm:text-lg font-bold overflow-hidden text-elipsis [display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]">

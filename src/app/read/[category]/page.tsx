@@ -5,7 +5,7 @@ import React from "react";
 const CategoryListPage = async ({ params }: { params: { category: string } }) => {
   const article = await GetUserArticlePosts()
   const { category } = params;
-  const findKey = category.replace("-", " ");
+  const findKey = category.replaceAll("-", " ");
 
   return (
     <div className="h-full">

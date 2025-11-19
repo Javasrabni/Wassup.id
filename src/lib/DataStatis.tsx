@@ -23,7 +23,7 @@ export const NavbarData: Navbar[] = [
 
 export const DataTopik = [
   { id: 1, string: "Hukum" },
-  { id: 2, string: "Akademik" },
+  { id: 2, string: "Akademik" },  
   { id: 3, string: "Teknologi" },
   { id: 4, string: "Diskusi Opini" },
   { id: 5, string: "Filsafat" },
