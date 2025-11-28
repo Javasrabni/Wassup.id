@@ -38,7 +38,7 @@ export default function LoginPage() {
     <div className="w-full h-full min-h-[80vh] flex flex-col gap-16 items-center justify-center  ">
       <div className="flex flex-col gap-0 text-center">
         <h1 className="text-2xl">Daftar sebagai penulis</h1>
-        <p className="text-base">Bagikan pengerahuan, tulis pendapatmu.</p>
+        <p className="text-base">Bagikan pengetahuan, tulis pendapatmu.</p>
       </div>
       <div className="flex flex-col gap-12 w-full max-w-[20rem]">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">

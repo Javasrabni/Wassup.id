@@ -48,7 +48,7 @@ export function SearchPage() {
             <div className="w-full h-full flex flex-col gap-8">
                 {!loading ? (
                     <>
-                        <DataUserPosts articles={matchData} />
+                        <DataUserPosts articles={matchData} emptyMessage={"Hasil tidak ditemukan."}/>
                     </>
                 ) : (
                     <div className="flex flex-col gap-8">

@@ -55,7 +55,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
   const { slug, id } = params;
   const data = await GetArticleDetail({ slug, id });
   console.log(data);
-  const userArticle = await GetUserArticlePosts();
+  const userArticle = await GetUserArticlePosts({pengecualian: [id]});
 
   if (!data) notFound();
 
@@ -158,6 +158,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
           <DataUserPosts
             articles={userArticle}
             judul={"Baca juga topik lainnya"}
+            emptyMessage={""}
           />
         </div>
       </div>

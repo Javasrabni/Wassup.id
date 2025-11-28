@@ -57,9 +57,10 @@ async function UserProfile({ params }: Props) {
   const dataSlug = params.slug.replaceAll('-', ' ')
   const articles = await GetUserArticlePosts()
   const profile = await GetDetailUsersProfile({ slug: dataSlug, id: params.id })
-  const totalUserPosts = await CreateArticle.countDocuments({ author: dataSlug })
+  const totalUserPosts = await CreateArticle.countDocuments({ author: dataSlug, visibility: "Publik" })
+  const totalUserPostsPrivate = await CreateArticle.countDocuments({ author: dataSlug, visibility: "Privat" })
 
-  return <UserProfileClient profile={profile} articles={articles} lengthUserPosts={totalUserPosts} />
+  return <UserProfileClient profile={profile} articles={articles} lengthUserPosts={totalUserPosts} lengthUserPostsPrivate={totalUserPostsPrivate}/>
 };
 
 export default UserProfile;

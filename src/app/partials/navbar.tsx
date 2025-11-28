@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Menu, SquarePenIcon } from "lucide-react";
+import { Menu, SquarePenIcon, Bell } from "lucide-react";
 import { NavbarData } from "@/lib/DataStatis";
 import SearchInput from "@/components/SearchInput";
 import Image from "next/image";
@@ -48,6 +48,9 @@ const Navbar = () => {
           ))} */}
           {user ? (
             <div className="flex flex-row gap-4 items-center">
+              <div className="cursor-pointer">
+                <Bell width={16}/>
+              </div>
                <Link href={"/write"} className="w-fit h-8 gap-2 px-4 flex items-center justify-center bg-stone-100 rounded-full hover:outline-1 ">
                 <SquarePenIcon width={16} />
                 <p className="text-sm">Menulis</p>

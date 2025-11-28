@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="w-full h-full gap-16 flex flex-row items-center justify-between">
         {/* Brand */}
         <div className="shrink-0 flex flex-col gap-4 w-72 h-full">
-          <h1 className="text-xl ">Opinion Journey</h1>
+          <h1 className="text-xl ">Wassup.id</h1>
           <p className="text-sm">
             Kami percaya bahwa berbagi pengetahuan adalah langkah kecil menuju
             perubahan besar. Mari berdiskusi dengan santun dan saling
