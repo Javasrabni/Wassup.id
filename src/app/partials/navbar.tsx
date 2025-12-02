@@ -27,7 +27,10 @@ const Navbar = () => {
   return (
     <div className="w-full h-20 border-b-1 border-gray-200 flex items-center justify-center px-8">
       <div className="max-w-[60rem] w-full flex items-center justify-between">
-        <Link href={"/"}>
+        <Link href={"/"} className={'flex flex-row gap-0 items-center'}>
+          <div className="w-16 h-16 relative">
+            <Image src={'/materials/logo.png'} alt={'Logo'} fill className="object-cover scale-[110%] translate-y-[-2px]" />
+          </div>
           <h1 className="text-xl font-bold">Wassup.id</h1>
         </Link>
 
@@ -49,9 +52,9 @@ const Navbar = () => {
           {user ? (
             <div className="flex flex-row gap-4 items-center">
               <div className="cursor-pointer">
-                <Bell width={16}/>
+                <Bell width={16} />
               </div>
-               <Link href={"/write"} className="w-fit h-8 gap-2 px-4 flex items-center justify-center bg-stone-100 rounded-full hover:outline-1 ">
+              <Link href={"/write"} className="w-fit h-8 gap-2 px-4 flex items-center justify-center bg-stone-100 rounded-full hover:outline-1 ">
                 <SquarePenIcon width={16} />
                 <p className="text-sm">Menulis</p>
               </Link>
@@ -63,7 +66,7 @@ const Navbar = () => {
                 onMouseOver={() => setProfileHover(true)}
                 onMouseLeave={() => setProfileHover(false)}
               >
-                <DefaultNonAvatar username={user.username.toString()}/>
+                <DefaultNonAvatar username={user.username.toString()} />
 
                 {profileHover && (
                   <div className="absolute bottom-[-72px] w-42 shrink-0 right-0 bg-stone-900 px-4 py-2 ">
@@ -72,7 +75,7 @@ const Navbar = () => {
                   </div>
                 )}
               </Link>
-             
+
             </div>
           ) : (
             <Link

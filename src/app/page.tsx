@@ -53,10 +53,10 @@ export default async function Home() {
       </div>
 
       {/* ARTIKEL */}
-      <div className="flex w-full justify-between gap-4 mt-[-2.5rem]">
+      <div className="flex w-full justify-between gap-8 mt-[-2.5rem]">
         {/* MAIN CONTENT DISPLAY*/}
-        <div className="mt-8 flex flex-col gap-8">
-          <DataUserPosts articles={userArticles} onProfilePage={false} />
+        <div className="mt-0 flex flex-col gap-8">
+          <DataUserPosts articles={userArticles} onProfilePage={false} emptyMessage={''}/>
           {/* <ArtikelDataParsing judul="" featured_article /> */}
           {/* <ArtikelDataParsing judul="Terbaru" featured_article={false} /> */}
         </div>
@@ -64,13 +64,10 @@ export default async function Home() {
         {/* SIDE CONTENT DISPLAY*/}
         <div className="max-w-[16rem] mt-8 shrink-0 flex flex-col gap-8">
           <p className="text-justify text-sm">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem
-            eveniet, quod pariatur sunt voluptas numquam est esse error dolore
-            possimus qui obcaecati nam, labore explicabo nemo deserunt harum.
-            Possimus, natus.
+            Kami percaya bahwa berbagi pengetahuan adalah langkah kecil menuju perubahan besar. Mari berdiskusi dengan baik.
           </p>
           <div className="text-sm flex flex-col gap-4">
-            <h1 className="font-semibold">Writers of The Month</h1>
+            <h1 className="font-semibold">Terkoneksi dengan pengguna lain</h1>
             <ParsingAllUser />
           </div>
         </div>

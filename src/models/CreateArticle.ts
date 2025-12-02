@@ -36,7 +36,7 @@ const CreateArticle = new mongoose.Schema({
   },
   view: {
     type: Number,
-    default: 1
+    default: 0
   },
   category: {
     type: String,

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Edit2Icon, LockKeyholeIcon, Trash2Icon } from "lucide-react";
+import { BookOpenTextIcon, Edit2Icon, LockKeyholeIcon, Trash2Icon } from "lucide-react";
 import deleteArticle from "@/lib/actions/deleteArticle";
 import { redirect } from "next/navigation";
 import Markdown from "react-markdown";
@@ -71,12 +71,18 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
           return (
             <div key={i._id} className="flex gap-4">
               <div className="relative w-[240px] h-[168px] shrink-0">
-                <Image
-                  src={`${i.thumbnail ?? '/'}`}
-                  alt={`Gambar - ${i.title?.slice(0, 50)}`}
-                  fill
-                  className="object-cover object-center rounded-sm"
-                />
+                {i?.thumbnail ? (
+                  <Image
+                    src={`${i.thumbnail ?? '/'}`}
+                    alt={`Gambar - ${i.title?.slice(0, 50)}`}
+                    fill
+                    className="object-cover object-center rounded-sm"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-stone-100 rounded-sm flex items-center justify-center">
+                    <BookOpenTextIcon width={24} className="text-stone-900"/>
+                  </div>
+                )}
               </div>
               <div>
 
@@ -108,7 +114,7 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
                   {onProfilePage && (
                     <>
                       <Link href={`/write`}>
-                        <p className="bg-gray-100 hover:bg-gray-200 text-stone-900 hover:text-gray-900 px-3 py-1 text-[10px] uppercase tracking-widest">
+                        <p className="bg-gray-100 hover:bg-gray-200 text-stone-900 hover:text-gray-900 px-3 py-1 text-[10px]  ">
                           <span className={'flex flex-row gap-2 items-center'}>
                             <Edit2Icon width={12} />
                             Edit

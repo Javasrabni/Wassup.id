@@ -3,16 +3,18 @@ import type { Metadata } from "next";
 import { DataArtikel } from "@/lib/DataStatis";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
-import { Eye, MessageSquareTextIcon, UserRoundPenIcon } from "lucide-react";
+import { Eye, InstagramIcon, Link2Icon, MessageSquareTextIcon, UserRoundPenIcon } from "lucide-react";
 import CommentBox from "@/components/CommentBox";
 import ArticleView from "@/models/ArticleView";
+import Image from "next/image";
 
 import DataUserPosts from "@/components/server/DataUserPosts";
 import { GetArticleDetail } from "@/lib/user_article/getDetailPosts";
 import { GetUserArticlePosts } from "@/lib/user_article/getAllPosts";
 import Link from "next/link";
+import ViewCount from "./viewCounter";
 
-interface ArticleParams {
+export interface ArticleParams {
   params: {
     category: string;
     slug: string;
@@ -55,7 +57,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
   const { slug, id } = params;
   const data = await GetArticleDetail({ slug, id });
   console.log(data);
-  const userArticle = await GetUserArticlePosts({pengecualian: [id]});
+  const userArticle = await GetUserArticlePosts({ pengecualian: [id] });
 
   if (!data) notFound();
 
@@ -78,6 +80,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
     // datePublished: new Date(data.date).toISOString(),
   };
 
+
   return (
     <>
       {/* Schema JSON-LD untuk Google */}
@@ -88,13 +91,15 @@ async function ReadDetailArticle({ params }: ArticleParams) {
 
       <div className="mx-auto w-full flex flex-col gap-8">
         {/* CONTENT */}
+        <ViewCount articleId={id} />
+
         <div className="prose w-full prose-p:my-4 flex flex-col md:flex-row justify-between gap-8">
           {/* Article viewed */}
           <div className="max-w-[39rem] w-full">
             <div className="flex flex-row items-center gap-4 mb-8">
               <Eye width={16} className="text-stone-400" />
               <p className="text-sm">
-                Dilihat oleh <b>12</b> orang
+                Dilihat oleh <b>{data.view}</b> orang
               </p>
             </div>
 
@@ -122,11 +127,20 @@ async function ReadDetailArticle({ params }: ArticleParams) {
             <div className="markdown-spacing-paragraph text-md prose prose-p:text-justify">
               <Markdown>{data.content}</Markdown>
             </div>
+
           </div>
 
           {/* SIDE */}
           {/* Komentar */}
           <div className="pt-12 flex flex-col gap-4 max-w-[19rem] w-full shrink-0">
+            <div className='flex flex-row gap-4 items-center justify-between border-b-1 border-gray-200 pb-2'>
+              <h1 className="text-sm font-semibold">Bagikan</h1>
+              <div className={'flex flex-row gap-4 items-center '}>
+                <Link2Icon width={16} className="cursor-pointer" />
+                <InstagramIcon width={16} color={"black"} className="cursor-pointer" />
+                <Image width={14} height={14} src={'/materials/whatsapp.svg'} alt={"WhatsApp Logo"} className="cursor-pointer"/>
+              </div>
+            </div>
             {data.komentarField === "Aktif" ? (
               <>
                 <div className="flex flex-col gap-2 mb-4">

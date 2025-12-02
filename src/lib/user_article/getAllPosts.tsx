@@ -1,7 +1,7 @@
 import CreateArticle from "@/models/CreateArticle";
 import { connectDB } from "../db/mongodb";
 
-export async function GetUserArticlePosts(options?: {username: string; pengecualian:string[]}) {
+export async function GetUserArticlePosts(options?: {username?: string; pengecualian?:string[]}) {
     await connectDB()
     const filter:any = {}
 

@@ -29,7 +29,6 @@ export const DataTopik = [
   { id: 5, string: "Filsafat" },
   { id: 6, string: "Inovasi" },
   { id: 7, string: "Sains" },
-  { id: 8, string: "Sains" },
 ] as const
 
 export type CategoryType = typeof DataTopik[number]["string"];

@@ -44,7 +44,7 @@ const ParsingAllUser = () => {
       ) : (
         <>
           {allUsers &&
-            allUsers.map((v, idx) => (
+            allUsers.slice(0,3).map((v, idx) => (
               <Link
                 key={idx}
                 href={`/profile/${v.username.replaceAll(' ','-')}/${v._id}`}
@@ -54,6 +54,9 @@ const ParsingAllUser = () => {
                 <p>{v.username}</p>
               </Link>
             ))}
+            {allUsers.length >= 4 && (
+              <p className="cursor-pointer text-blue-400 text-sm ">Lihat semua</p>
+            )}
         </>
       )}
     </div>
