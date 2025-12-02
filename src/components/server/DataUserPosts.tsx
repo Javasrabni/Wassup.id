@@ -113,8 +113,8 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
 
                   {onProfilePage && (
                     <>
-                      <Link href={`/write`}>
-                        <p className="bg-gray-100 hover:bg-gray-200 text-stone-900 hover:text-gray-900 px-3 py-1 text-[10px]  ">
+                      <Link href={`/write/${i._id}`}>
+                        <p className="bg-gray-100 hover:bg-gray-200 text-stone-900 hover:text-gray-900 px-3 py-1 text-xs  ">
                           <span className={'flex flex-row gap-2 items-center'}>
                             <Edit2Icon width={12} />
                             Edit

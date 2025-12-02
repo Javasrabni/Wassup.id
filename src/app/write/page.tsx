@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
@@ -8,16 +8,17 @@ import UploadFile from "@/components/card/uploadFile";
 import Image from "next/image";
 import Markdown from "react-markdown";
 import { InfoIcon } from "lucide-react";
+import { EditArticle } from "./types";
 
 const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
-const WritePage = () => {
+const WritePage = (props: EditArticle) => {
   const router = useRouter();
   //   FIELD
   const [title, setTitle] = useState<string | undefined>("");
   const [value, setValue] = useState<string | undefined>("Mulai menulis ...");
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [previewThumbnail, setPreviewThumbnail] = useState<string | null>(null);
+  const [previewThumbnail, setPreviewThumbnail] = useState<string | null | undefined>(null);
   const [category, setCategory] = useState<string | undefined>("Diskusi Opini");
   const [visibility, setVisibility] = useState<string | undefined>("Publik");
   const [komentarField, setKomentarField] = useState<string | undefined>("Aktif")
@@ -34,6 +35,19 @@ const WritePage = () => {
     { id: 8, string: "Sosial" },
     { id: 9, string: "Kesehatan" },
   ]
+
+  // DATA FROM ARTICLE FOR EDIT
+  useEffect(() => {
+    if (props.onEdit) {
+      setTitle(props.titleEdit)
+      setValue(props.valueEdit)
+      setPreviewThumbnail(props.thumbnailEdit)
+      setCategory(props.categoryEdit)
+      setVisibility(props.visibilityEdit)
+      setKomentarField(props.komentarFieldEdit)
+    }
+  }, [props])
+
 
   const { user, loading } = useUser();
   //   if (loading || !user) return <p>tunggu</p>;
@@ -95,6 +109,43 @@ const WritePage = () => {
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  // PATCH ARTICLE
+  async function PatchArticle() {
+    try {
+      const res = await fetch('/api/create_article', {
+        method: "PATCH",
+        headers: {"Content-Type": 'application/json'},
+        body: JSON.stringify({
+          idArticle: props.idArticleEdit,
+          title,
+          content: value,
+          // thumbnail: thumbnailURL,
+          slug: title,
+          // description: value,
+          // featured_article,
+          // view,
+          category: category,
+          visibility: visibility,
+          komentarField: komentarField
+        })
+      })
+       if (!res.ok) {
+        console.error(new Error("Gagal menyimpan perubahan."));
+        return;
+      } else {
+        router.replace(`/profile/${user?.username.replaceAll(' ', '-')}/${user?.id}`);
+        setTitle("");
+        setValue("");
+        setThumbnail(null);
+        setCategory("");
+        setVisibility("Publik");
+        setKomentarField("Aktif")
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
   return (
@@ -171,7 +222,7 @@ const WritePage = () => {
       <div data-color-mode="light" className="">
         <MDEditor value={value} onChange={(e) => setValue(e)} height={500} />
       </div>
-      <button onClick={PostCreateArticle}>SEND</button>
+      <button className="bg-stone-900 text-white w-fit px-4 py-1 font-[inter] text-sm rounded-sm hover:bg-stone-100 hover:text-stone-900 cursor-pointer" onClick={props.onEdit ? PatchArticle : PostCreateArticle}>{props.onEdit ? "Simpan" : "Publikasikan"}</button>
     </div>
   );
 };

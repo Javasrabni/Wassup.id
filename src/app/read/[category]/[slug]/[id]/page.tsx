@@ -105,24 +105,41 @@ async function ReadDetailArticle({ params }: ArticleParams) {
 
             {/* ARTICLE CONTENT */}
             <div className="mb-4 border-b border-gray-200 pb-4">
-              <h1 className="text-3xl font-bold">{data.title}</h1>
-              <p className="text-sm text-stone-400">
-                <span className="flex flex-row gap-2 items-center">
+              <h1 className="text-3xl font-bold pb-4">{data.title}</h1>
+              <span className="flex flex-col gap-2">
+                <div className="flex flex-row gap-2 text-stone-400 items-center">
                   <UserRoundPenIcon width={16} />
                   <Link
-                    className="underline"
+                    className=""
                     href={`/profile/${data.author.replaceAll(" ", "-")}/${data.authorID
                       }`}
                   >
-                    {data.author},
+                    <p className="text-sm">{data.author}, </p>
                   </Link>
-                  {new Date(data.updatedAt).toLocaleDateString("id-ID", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </span>
-              </p>
+                  <p className="text-sm text-stone-400">
+                    {new Date(data.createdAt).toLocaleDateString("id-ID", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+
+                <div className="flex flex-row gap-2 items-center">
+
+                  {/* IF UPDATE */}
+                  {data.isUpdated && (
+                    <p className="text-sm text-stone-400">
+                      | Telah disunting: {new Date(data.updatedAt).toLocaleDateString("id-ID", {
+                        day: "numeric",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+                  )}
+                </div>
+
+              </span>
             </div>
             <div className="markdown-spacing-paragraph text-md prose prose-p:text-justify">
               <Markdown>{data.content}</Markdown>
@@ -138,7 +155,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
               <div className={'flex flex-row gap-4 items-center '}>
                 <Link2Icon width={16} className="cursor-pointer" />
                 <InstagramIcon width={16} color={"black"} className="cursor-pointer" />
-                <Image width={14} height={14} src={'/materials/whatsapp.svg'} alt={"WhatsApp Logo"} className="cursor-pointer"/>
+                <Image width={14} height={14} src={'/materials/whatsapp.svg'} alt={"WhatsApp Logo"} className="cursor-pointer" />
               </div>
             </div>
             {data.komentarField === "Aktif" ? (

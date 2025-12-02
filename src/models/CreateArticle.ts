@@ -48,6 +48,9 @@ const CreateArticle = new mongoose.Schema({
   }, komentarField: {
     type: String,
     default: "Aktif"
+  }, isUpdated: {
+    type: Boolean,
+    default: false
   }
 }, {timestamps: true});
 

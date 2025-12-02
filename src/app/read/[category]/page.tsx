@@ -9,7 +9,7 @@ const CategoryListPage = async ({ params }: { params: { category: string } }) =>
 
   return (
     <div className="h-full">
-      <DataUserPosts articles={article} category={findKey.toString()} emptyMessage={''}/>
+      <DataUserPosts articles={article} category={findKey.toString()} emptyMessage={'Jadilah yang pertama menulis topik ini.'}/>
 
     </div>
   );

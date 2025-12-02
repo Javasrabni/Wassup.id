@@ -17,13 +17,14 @@ interface ArticleType {
   visibility: string;
   komentarField: string;
   authorID: string;
+  isUpdated: boolean;
 }
 
 
 
 export async function GetArticleDetail({slug, id} : {slug?:string; id?: string}): Promise<ArticleType | null> {
   await connectDB();
-  const article = await CreateArticle.findOne({ slug, _id: id }).lean<ArticleType>();
+  const article = await CreateArticle.findById(id).lean<ArticleType>();
   const user = await UserAccount.findOne({username: article?.author});
   if (!article) return null;
   return {
