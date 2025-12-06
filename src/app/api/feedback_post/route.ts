@@ -19,6 +19,6 @@ export async function POST(req: Request){
 
         return NextResponse.json({success: true}, {status: 200})
     } catch (error) {
-        return NextResponse.json({success: false, message: "Gagal mengirim FeedBack."})
+        return NextResponse.json({success: false, message: "Gagal mengirim FeedBack.", error})
     }
 }
