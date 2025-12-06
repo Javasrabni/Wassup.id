@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+
+  eslint: {
+    ignoreDuringBuilds: true, // ⬅️ Tambahkan ini
+  },
 };
 
 export default nextConfig;

@@ -18,6 +18,20 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if(username.length >=21) {
+      alert("Batas maksimal username 21 karakter")
+      return 
+    }
+    if (!email.includes('@gmail.com') || email.length <= 10) {
+      alert("Masukkan email yang valid.")
+      return
+    }
+
+    if (password.length >= 10) {
+      alert("Password setidaknya lebih dari 10")
+      return
+    }
+
     const res = await fetch("/api/user_register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -86,7 +100,8 @@ export default function LoginPage() {
             <p className="text-sm shrink-0">Atau</p>
             <div className="w-full h-[1px] bg-stone-200" />
           </div>
-          <div className="w-full bg-stone-100 p-4 cursor-pointer hover:outline-1 rounded-full flex flex-row gap-4 items-center justify-center">
+
+          <div className=" select-none opacity-[50%] w-full bg-stone-100 p-4 cursor-not-allowed hover:outline-1 rounded-full flex flex-row gap-4 items-center justify-center">
             <Image
               src={"/materials/google.png"}
               alt="Google Icon"
