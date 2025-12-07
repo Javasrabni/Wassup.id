@@ -36,7 +36,7 @@ interface Props {
 
 
 
-export default function DataUserPosts({ articles, judul, category, author, onProfilePage, userId, userUsernameCookie, emptyMessage}: Props) {
+export default function DataUserPosts({ articles, judul, category, author, onProfilePage, userId, userUsernameCookie, emptyMessage }: Props) {
   let filteredArticle = articles
   if (category) {
     filteredArticle = filteredArticle.filter((v) => v.category?.toLowerCase() === category.toLowerCase())
@@ -59,7 +59,9 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
   return (
     <div className={`flex flex-col gap-8`}>
       {/* <ConfirmPopup title={"Yakin ingin mengapus?"} onOk={onDelete} /> */}
-      <h1 className="text-lg sm:text-xl font-bold font-['Inter']">{judul}</h1>
+      {judul && judul !== "" && (
+        <h1 className="text-lg sm:text-xl font-bold font-['Inter']">{judul}</h1>
+      )}
 
       {filteredArticle.length > 0 ? (
         filteredArticle.map((i) => {
@@ -69,8 +71,8 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
 
           if (isPrivate && !isOwner) return null
           return (
-            <div key={i._id} className="flex gap-4">
-              <div className="relative w-[240px] h-[168px] shrink-0">
+            <div key={i._id} className="flex gap-4 flex-col sm:flex-row">
+              <div className="relative sm:w-[240px] w-full h-[168px] shrink-0">
                 {i?.thumbnail ? (
                   <Image
                     src={`${i.thumbnail ?? '/'}`}
@@ -80,7 +82,7 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
                   />
                 ) : (
                   <div className="w-full h-full bg-stone-100 rounded-sm flex items-center justify-center">
-                    <BookOpenTextIcon width={24} className="text-stone-900"/>
+                    <BookOpenTextIcon width={24} className="text-stone-900" />
                   </div>
                 )}
               </div>
@@ -98,7 +100,7 @@ export default function DataUserPosts({ articles, judul, category, author, onPro
                   {/* PRIVATE LABEL */}
                   {i.visibility === "Privat" && (
                     <div className="bg-stone-100 w-fit px-2 py-1">
-                      <p className="uppercase text-xs tracking-widest"><span className="flex flex-row gap-2 items-center"><LockKeyholeIcon width={16}/> PRIVAT</span></p>
+                      <p className="uppercase text-xs tracking-widest"><span className="flex flex-row gap-2 items-center"><LockKeyholeIcon width={16} /> PRIVAT</span></p>
                     </div>
                   )}
                   <Link href={`/read/${i.category?.toLowerCase()}/${i.slug}/${i._id}`}>

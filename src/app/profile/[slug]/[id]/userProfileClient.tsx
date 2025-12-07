@@ -51,7 +51,7 @@ function UserProfileClient({ profile, articles, lengthUserPosts, lengthUserPosts
 
 
       {/* POSTS */}
-      <div className={`w-full border-t boder-1 border-stone-200 ${onEditProfile && 'blur-0'}`}>
+      <div className={`w-full border-t boder-1 border-stone-200 ${onEditProfile && 'blur-0'} pt-8`}>
         <DataUserPosts articles={articles} author={profile?.username} onProfilePage={isOwner ? true : false} userId={user?.id} userUsernameCookie={user?.username} emptyMessage={`${profile?.username} belum memiliki postingan.`} />
       </div>
 

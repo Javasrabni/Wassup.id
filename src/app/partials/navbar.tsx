@@ -22,7 +22,7 @@ const Navbar = () => {
 
   // Api/me
   const { user, loading } = useUser();
-  if (loading) return null;
+  // if (loading) return null;
 
   return (
     <div className="w-full h-20 border-b-1 border-gray-200 flex items-center justify-center px-8">
@@ -31,7 +31,7 @@ const Navbar = () => {
           <div className="w-16 h-16 relative">
             <Image src={'/materials/logo.png'} alt={'Logo'} fill className="object-cover scale-[110%] translate-y-[-2px]" />
           </div>
-          <h1 className="text-xl font-bold">Wassup.id</h1>
+          <h1 className="text-sm md:text-xl font-bold">Wassup.id</h1>
         </Link>
 
         <span className={`${pathname == "/" ? "hidden" : "hidden sm:flex"}`}>
@@ -43,7 +43,7 @@ const Navbar = () => {
           />
         </span>
 
-        <ul className="hidden md:flex md:items-center gap-8 ">
+        <ul className="flex items-center gap-8 ">
           {/* {NavbarData.slice(0, 1).map((i) => (
             <Link key={i.id} href={`/${i.URL}`}>
               <li className="hover:text-gray-400">{i.title}</li>
@@ -89,16 +89,16 @@ const Navbar = () => {
                   width={16}
                   height={16}
                 />
-                <p className="font-newsreader font-semibold mt-[2.5px]">
+                <p className="text-sm font-newsreader font-semibold mt-[2.5px]">
                   Masuk
                 </p>
               </span>
             </Link>
           )}
         </ul>
-        <div className="flex md:hidden">
+        {/* <div className="flex md:hidden">
           <Menu className="w-4 h-4" />
-        </div>
+        </div> */}
       </div>
     </div>
   );

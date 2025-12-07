@@ -53,7 +53,7 @@ export default async function Home() {
       </div>
 
       {/* ARTIKEL */}
-      <div className="flex w-full justify-between gap-8 mt-[-2.5rem]">
+      <div className="flex flex-col md:flex-row w-full justify-between gap-8 mt-[-1rem]">
         {/* MAIN CONTENT DISPLAY*/}
         <div className="mt-0 flex flex-col gap-8">
           <DataUserPosts articles={userArticles} onProfilePage={false} emptyMessage={''}/>
@@ -62,11 +62,11 @@ export default async function Home() {
         </div>
 
         {/* SIDE CONTENT DISPLAY*/}
-        <div className="max-w-[16rem] mt-8 shrink-0 flex flex-col gap-8">
-          <p className="text-justify text-sm">
+        <div className="w-full border-t border-gray-200 md:max-w-[16rem] mt-8 shrink-0 flex flex-col sm:flex-row md:flex-col gap-8">
+          <p className="w-full md:w-fit text-justify text-sm pt-4 md:pt-0">
             Kami percaya bahwa berbagi pengetahuan adalah langkah kecil menuju perubahan besar. Mari berdiskusi dengan baik.
           </p>
-          <div className="text-sm flex flex-col gap-4">
+          <div className="w-full md:w-fit text-sm flex flex-col gap-4">
             <h1 className="font-semibold">Terkoneksi dengan pengguna lain</h1>
             <ParsingAllUser />
           </div>

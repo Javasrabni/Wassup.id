@@ -98,25 +98,25 @@ async function ReadDetailArticle({ params }: ArticleParams) {
           <div className="max-w-[39rem] w-full">
             <div className="flex flex-row items-center gap-4 mb-8">
               <Eye width={16} className="text-stone-400" />
-              <p className="text-sm">
+              <p className="text-xs sm:text-sm">
                 Dilihat oleh <b>{data.view}</b> orang
               </p>
             </div>
 
             {/* ARTICLE CONTENT */}
             <div className="mb-4 border-b border-gray-200 pb-4">
-              <h1 className="text-3xl font-bold pb-4">{data.title}</h1>
-              <span className="flex flex-col gap-2">
-                <div className="flex flex-row gap-2 text-stone-400 items-center">
-                  <UserRoundPenIcon width={16} />
+              <h1 className="text-2xl sm:text-3xl font-bold pb-2 sm:pb-4">{data.title}</h1>
+              <span className="flex flex-col gap-1 sm:gap-2">
+                <div className="flex flex-col sm:flex-row gap-2 text-stone-400 sm:items-center">
                   <Link
-                    className=""
+                    className="flex flex-row gap-2 items-center"
                     href={`/profile/${data.author.replaceAll(" ", "-")}/${data.authorID
-                      }`}
+                    }`}
                   >
-                    <p className="text-sm">{data.author}, </p>
+                    <UserRoundPenIcon width={16} />
+                    <p className="text-xs sm:text-sm underline">{data.author}, </p>
                   </Link>
-                  <p className="text-sm text-stone-400">
+                  <p className="text-xs sm:text-sm text-stone-400">
                     {new Date(data.createdAt).toLocaleDateString("id-ID", {
                       day: "numeric",
                       month: "long",
@@ -129,7 +129,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
 
                   {/* IF UPDATE */}
                   {data.isUpdated && (
-                    <p className="text-sm text-stone-400">
+                    <p className="text-xs sm:text-sm text-stone-400">
                       | Telah disunting: {new Date(data.updatedAt).toLocaleDateString("id-ID", {
                         day: "numeric",
                         month: "long",
@@ -141,7 +141,7 @@ async function ReadDetailArticle({ params }: ArticleParams) {
 
               </span>
             </div>
-            <div className="markdown-spacing-paragraph text-md prose prose-p:text-justify">
+            <div className="markdown-spacing-paragraph text-sm sm:text-md prose prose-p:text-justify">
               <Markdown>{data.content}</Markdown>
             </div>
 

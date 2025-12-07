@@ -46,9 +46,9 @@ export default function RootLayout({
             </div>
           </div>
 
-          <div className="flex md:hidden">
+          {/* <div className="flex md:hidden">
             <Sidebar />
-          </div>
+          </div> */}
         </UserProvider>
       </body>
     </html>
