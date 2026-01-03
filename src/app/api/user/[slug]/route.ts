@@ -2,13 +2,9 @@ import { NextResponse } from "next/server";
 import UserAccount from "@/models/UserAccount";
 import { connectDB } from "@/lib/db/mongodb";
 
-type Params = {
-  slug: string;
-};
-
 export async function GET(
   request: Request,
-  context: { params: Params }
+  context: any
 ) {
   try {
     await connectDB();
@@ -27,7 +23,7 @@ export async function GET(
     }
 
     return NextResponse.json({ user });
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { message: "Server error" },
       { status: 500 }
