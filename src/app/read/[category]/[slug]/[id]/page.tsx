@@ -56,7 +56,7 @@ export async function generateMetadata({
 async function ReadDetailArticle({ params }: ArticleParams) {
   const { slug, id } = params;
   const data = await GetArticleDetail({ slug, id });
-  console.log(data);
+  // console.log(data);
   const userArticle = await GetUserArticlePosts({ pengecualian: [id] });
 
   if (!data) notFound();

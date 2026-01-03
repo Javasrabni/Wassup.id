@@ -18,7 +18,7 @@ export async function connectDB() {
     // Sudah terkoneksi, langsung return
     return cached.conn;
   }
-
+  
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,

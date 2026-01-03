@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     }
     // JWT
     const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
-
+    
     const token = await new SignJWT({
       id: user._id.toString(),
       username: user.username,
@@ -45,7 +45,7 @@ export async function POST(req: Request) {
       message: "Login berhasil",
     });
     res.cookies.set("token", token, {
-      maxAge: 60 * 60 * 24 * 2,
+      maxAge: 60 * 60 * 24 * 2, 
       httpOnly: true, 
       path: "/",
       sameSite: "lax",

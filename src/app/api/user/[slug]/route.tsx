@@ -2,18 +2,35 @@ import { NextResponse } from "next/server";
 import UserAccount from "@/models/UserAccount";
 import { connectDB } from "@/lib/db/mongodb";
 
-export async function GET(request: Request, {params}: {params: {slug: string}}) {
-    try {
-        await connectDB()
-        const slug = decodeURIComponent(params.slug)
+type Params = {
+  slug: string;
+};
 
-        const user = await UserAccount.findOne({username: slug}).select("-password")
-        if(!user) {
-            return NextResponse.json({message: "Pengguna tidak ditemukan."}, {status: 400})
-        }
+export async function GET(
+  request: Request,
+  context: { params: Params }
+) {
+  try {
+    await connectDB();
 
-        return NextResponse.json({user})
-    } catch (err) {
-            return NextResponse.json({ message: "Server error", error: err }, { status: 500 });
+    const slug = decodeURIComponent(context.params.slug);
+
+    const user = await UserAccount
+      .findOne({ username: slug })
+      .select("-password");
+
+    if (!user) {
+      return NextResponse.json(
+        { message: "Pengguna tidak ditemukan." },
+        { status: 404 }
+      );
     }
+
+    return NextResponse.json({ user });
+  } catch (err) {
+    return NextResponse.json(
+      { message: "Server error" },
+      { status: 500 }
+    );
+  }
 }
